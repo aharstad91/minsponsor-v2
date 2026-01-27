@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 import type {
   Organization,
   Group,
@@ -102,12 +104,15 @@ export function CheckoutForm({ organization, group, individual }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 p-4">
-      <div className="max-w-md mx-auto">
-        <form onSubmit={handleSubmit}>
-          <Card>
-            <CardContent className="p-6 space-y-6">
-              <h1 className="text-xl font-bold">Støtt {recipientName}</h1>
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+
+      <main className="flex-1 p-4">
+        <div className="max-w-md mx-auto">
+          <form onSubmit={handleSubmit}>
+            <Card>
+              <CardContent className="p-6 space-y-6">
+                <h1 className="text-xl font-bold text-foreground">Støtt {recipientName}</h1>
 
               {/* Amount selection */}
               <div className="space-y-3">
@@ -186,19 +191,19 @@ export function CheckoutForm({ organization, group, individual }: Props) {
                     onValueChange={(v) => setPaymentMethod(v as PaymentProvider)}
                   >
                     {organization.vipps_enabled && (
-                      <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-stone-50">
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-lg hover:bg-accent/20 transition-colors">
                         <RadioGroupItem value="vipps" id="pay-vipps" />
                         <Label
                           htmlFor="pay-vipps"
                           className="flex items-center gap-2 cursor-pointer flex-1"
                         >
                           <span className="text-[#FF5B24] font-bold">Vipps</span>
-                          <span className="text-sm text-gray-500">(Anbefalt)</span>
+                          <span className="text-sm text-muted-foreground">(Anbefalt)</span>
                         </Label>
                       </div>
                     )}
                     {organization.stripe_charges_enabled && (
-                      <div className="flex items-center space-x-2 p-3 border rounded-lg hover:bg-stone-50">
+                      <div className="flex items-center space-x-2 p-3 border border-border rounded-lg hover:bg-accent/20 transition-colors">
                         <RadioGroupItem value="stripe" id="pay-stripe" />
                         <Label
                           htmlFor="pay-stripe"
@@ -236,7 +241,7 @@ export function CheckoutForm({ organization, group, individual }: Props) {
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="47XXXXXXXX"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       Nummeret du har registrert i Vipps
                     </p>
                   </div>
@@ -254,16 +259,16 @@ export function CheckoutForm({ organization, group, individual }: Props) {
               </div>
 
               {/* Price breakdown */}
-              <div className="bg-stone-100 rounded-lg p-4 space-y-2 text-sm">
-                <div className="flex justify-between">
+              <div className="bg-accent/20 rounded-lg p-4 space-y-2 text-sm">
+                <div className="flex justify-between text-foreground">
                   <span>Støttebeløp</span>
                   <span>{formatAmountPlain(selectedAmount)} kr</span>
                 </div>
-                <div className="flex justify-between text-gray-500">
+                <div className="flex justify-between text-muted-foreground">
                   <span>Plattformavgift (10%)</span>
                   <span>{formatAmountPlain(platformFee)} kr</span>
                 </div>
-                <div className="flex justify-between font-bold border-t pt-2">
+                <div className="flex justify-between font-bold border-t border-border pt-2 text-foreground">
                   <span>Totalt{interval === 'monthly' ? '/måned' : ''}</span>
                   <span>{formatAmountPlain(totalAmount)} kr</span>
                 </div>
@@ -279,12 +284,13 @@ export function CheckoutForm({ organization, group, individual }: Props) {
                 type="submit"
                 className="w-full"
                 size="lg"
+                pill
                 disabled={loading || (paymentMethod === 'vipps' && interval === 'one_time')}
               >
                 {loading ? 'Laster...' : `Betal ${formatAmountPlain(totalAmount)} kr`}
               </Button>
 
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-muted-foreground text-center">
                 Sikker betaling via{' '}
                 {paymentMethod === 'vipps' ? 'Vipps' : 'Stripe'}. Ved å fortsette
                 godtar du våre vilkår.
@@ -292,7 +298,10 @@ export function CheckoutForm({ organization, group, individual }: Props) {
             </CardContent>
           </Card>
         </form>
-      </div>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }
