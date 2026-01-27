@@ -22,6 +22,18 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Development
 
+### Setup Admin User
+
+Create the admin user for local development:
+
+```bash
+npm run create-admin
+```
+
+This creates an admin user with credentials from `.env.local`:
+- Email: `admin@minsponsor.no`
+- Password: `minsponsor123`
+
 ### Seed Test Data
 
 Populate the admin dashboard with Stripe test data:

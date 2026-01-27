@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "create-admin": "tsx scripts/create-admin-user.ts",
     "seed:stripe": "tsx scripts/seed-stripe.ts",
     "seed:stripe:clean": "tsx scripts/seed-stripe.ts --clean"
   },
