@@ -26,6 +26,7 @@ import {
   Users,
   User,
   CreditCard,
+  FileText,
 } from 'lucide-react';
 
 type Props = {
@@ -147,6 +148,12 @@ export function OrganizationDetails({
         </div>
 
         <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <Link href={`/admin/organizations/${organization.id}/report`}>
+              <FileText className="h-4 w-4" />
+              Rapport
+            </Link>
+          </Button>
           <Button variant="outline" asChild>
             <Link href={`/admin/organizations/${organization.id}/edit`}>
               <Edit className="h-4 w-4" />

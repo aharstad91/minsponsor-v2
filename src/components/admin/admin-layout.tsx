@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Building2, LayoutDashboard, LogOut, Users } from 'lucide-react';
+import { Building2, CreditCard, LayoutDashboard, LogOut, Rocket, Users } from 'lucide-react';
 
 type Props = {
   children: React.ReactNode;
@@ -13,6 +13,8 @@ type Props = {
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Organisasjoner', href: '/admin/organizations', icon: Building2 },
+  { name: 'Økonomi', href: '/admin/finance', icon: CreditCard },
+  { name: 'Onboarding', href: '/admin/onboarding', icon: Rocket },
 ];
 
 export function AdminLayout({ children, userEmail }: Props) {

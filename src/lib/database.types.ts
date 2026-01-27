@@ -26,6 +26,9 @@ export type Organization = {
   vipps_msn: string | null;
   vipps_enabled: boolean;
   vipps_onboarding_sent_at: string | null;
+  // Onboarding tracking (manual verification steps)
+  test_payment_verified_at: string | null;
+  went_live_at: string | null;
   // General
   suggested_amounts: number[];
   status: OrganizationStatus;
@@ -96,6 +99,7 @@ export type Transaction = {
   group_id: string | null;
   individual_id: string | null;
   amount: number;
+  platform_fee: number; // Fee in øre, added on top of donation
   status: TransactionStatus;
   paid_at: string | null;
   created_at: string;
@@ -105,6 +109,15 @@ export type ProcessedEvent = {
   id: string;
   provider: PaymentProvider;
   event_id: string;
+  created_at: string;
+};
+
+export type ReportShare = {
+  id: string;
+  organization_id: string;
+  token: string;
+  expires_at: string | null;
+  created_by: string | null;
   created_at: string;
 };
 
@@ -175,6 +188,14 @@ export type Database = {
           created_at?: string;
         };
         Update: never;
+      };
+      report_shares: {
+        Row: ReportShare;
+        Insert: Omit<ReportShare, 'id' | 'created_at'> & {
+          id?: string;
+          created_at?: string;
+        };
+        Update: Partial<Omit<ReportShare, 'id' | 'created_at'>>;
       };
     };
   };
