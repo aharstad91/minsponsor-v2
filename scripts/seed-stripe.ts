@@ -71,7 +71,7 @@ async function cleanTestData() {
     return;
   }
 
-  const orgIds = testOrgs.map(o => o.id);
+  const orgIds = testOrgs.map((o: { id: string }) => o.id);
 
   // Delete subscriptions
   const { error: subError } = await supabase

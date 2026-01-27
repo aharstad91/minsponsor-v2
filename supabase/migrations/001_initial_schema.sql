@@ -36,6 +36,7 @@ CREATE TABLE groups (
   name TEXT NOT NULL,
   slug TEXT NOT NULL,
   description TEXT,
+  image_url TEXT,
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
