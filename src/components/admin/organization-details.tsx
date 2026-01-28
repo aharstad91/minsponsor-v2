@@ -62,7 +62,7 @@ export function OrganizationDetails({
 
     try {
       const response = await fetch(
-        `/api/admin/organizations/${organization.id}/stripe-link`,
+        `/api/admin/org/${organization.id}/stripe-link`,
         { method: 'POST' }
       );
       const data = await response.json();
@@ -93,7 +93,7 @@ export function OrganizationDetails({
 
     try {
       const response = await fetch(
-        `/api/admin/organizations/${organization.id}`,
+        `/api/admin/org/${organization.id}`,
         { method: 'DELETE' }
       );
       const data = await response.json();
@@ -102,7 +102,7 @@ export function OrganizationDetails({
         throw new Error(data.error || 'Kunne ikke slette');
       }
 
-      router.push('/admin/organizations');
+      router.push('/admin');
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Noe gikk galt');
@@ -149,13 +149,13 @@ export function OrganizationDetails({
 
         <div className="flex gap-2">
           <Button variant="outline" asChild>
-            <Link href={`/admin/organizations/${organization.id}/report`}>
+            <Link href={`/admin/org/${organization.id}/report`}>
               <FileText className="h-4 w-4" />
               Rapport
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href={`/admin/organizations/${organization.id}/edit`}>
+            <Link href={`/admin/org/${organization.id}/edit`}>
               <Edit className="h-4 w-4" />
               Rediger
             </Link>
@@ -364,7 +364,7 @@ export function OrganizationDetails({
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Grupper</CardTitle>
               <Button asChild size="sm">
-                <Link href={`/admin/organizations/${organization.id}/groups/new`}>
+                <Link href={`/admin/org/${organization.id}/groups/new`}>
                   <Plus className="h-4 w-4" />
                   Ny gruppe
                 </Link>
@@ -387,7 +387,7 @@ export function OrganizationDetails({
                         )}
                       </div>
                       <Link
-                        href={`/admin/organizations/${organization.id}/groups/${group.id}`}
+                        href={`/admin/org/${organization.id}/groups/${group.id}`}
                         className="text-sm text-blue-600 hover:underline"
                       >
                         Rediger
@@ -411,7 +411,7 @@ export function OrganizationDetails({
               <CardTitle>Individer</CardTitle>
               <Button asChild size="sm">
                 <Link
-                  href={`/admin/organizations/${organization.id}/individuals/new`}
+                  href={`/admin/org/${organization.id}/individuals/new`}
                 >
                   <Plus className="h-4 w-4" />
                   Nytt individ
@@ -455,7 +455,7 @@ export function OrganizationDetails({
                           </div>
                         </div>
                         <Link
-                          href={`/admin/organizations/${organization.id}/individuals/${individual.id}`}
+                          href={`/admin/org/${organization.id}/individuals/${individual.id}`}
                           className="text-sm text-blue-600 hover:underline"
                         >
                           Rediger

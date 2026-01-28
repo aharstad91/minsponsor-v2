@@ -165,7 +165,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3">
                 <Link
-                  href={`/admin/organizations/${org.id}`}
+                  href={`/admin/org/${org.id}`}
                   className="font-medium hover:underline truncate"
                 >
                   {org.name}

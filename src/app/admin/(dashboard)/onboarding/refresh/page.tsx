@@ -86,14 +86,14 @@ export default function OnboardingRefreshPage() {
             </Button>
             {orgId && (
               <Button asChild variant="outline">
-                <Link href={`/admin/organizations/${orgId}`}>
+                <Link href={`/admin/org/${orgId}`}>
                   Tilbake til organisasjon
                 </Link>
               </Button>
             )}
             <Button asChild variant="ghost">
-              <Link href="/admin/organizations">
-                Alle organisasjoner
+              <Link href="/admin">
+                Dashboard
               </Link>
             </Button>
           </div>

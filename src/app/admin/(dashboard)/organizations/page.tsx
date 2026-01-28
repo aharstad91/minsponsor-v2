@@ -59,7 +59,7 @@ export default async function OrganizationsPage() {
                   <tr key={org.id} className="hover:bg-stone-50">
                     <td className="px-4 py-3">
                       <Link
-                        href={`/admin/organizations/${org.id}`}
+                        href={`/admin/org/${org.id}`}
                         className="hover:underline"
                       >
                         <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default async function OrganizationsPage() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Link
-                        href={`/admin/organizations/${org.id}`}
+                        href={`/admin/org/${org.id}`}
                         className="text-sm text-blue-600 hover:underline"
                       >
                         Administrer

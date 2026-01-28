@@ -106,19 +106,19 @@ export default function OnboardingCompletePage() {
         {orgId ? (
           <>
             <Button asChild>
-              <Link href={`/admin/organizations/${orgId}/groups/new`}>
+              <Link href={`/admin/org/${orgId}/groups/new`}>
                 <Users className="h-4 w-4 mr-2" />
                 Opprett gruppe
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href={`/admin/organizations/${orgId}/individuals/new`}>
+              <Link href={`/admin/org/${orgId}/individuals/new`}>
                 <UserPlus className="h-4 w-4 mr-2" />
                 Legg til person
               </Link>
             </Button>
             <Button asChild variant="ghost">
-              <Link href={`/admin/organizations/${orgId}`}>
+              <Link href={`/admin/org/${orgId}`}>
                 Ga til organisasjon
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Link>
@@ -126,8 +126,8 @@ export default function OnboardingCompletePage() {
           </>
         ) : (
           <Button asChild>
-            <Link href="/admin/organizations">
-              Ga til organisasjoner
+            <Link href="/admin">
+              Ga til dashboard
               <ArrowRight className="h-4 w-4 ml-2" />
             </Link>
           </Button>

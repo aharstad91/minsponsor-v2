@@ -125,7 +125,7 @@ export default async function ReportPage({ params }: Props) {
     <div className="max-w-4xl mx-auto">
       {/* Back link */}
       <Link
-        href={`/admin/organizations/${id}`}
+        href={`/admin/org/${id}`}
         className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-6"
       >
         <ChevronLeft className="h-4 w-4 mr-1" />

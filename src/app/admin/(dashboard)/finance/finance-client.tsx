@@ -165,7 +165,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
                 <td className="px-4 py-3">
                   {tx.organization ? (
                     <Link
-                      href={`/admin/organizations/${tx.organization.id}`}
+                      href={`/admin/org/${tx.organization.id}`}
                       className="hover:underline"
                     >
                       {tx.organization.name}
