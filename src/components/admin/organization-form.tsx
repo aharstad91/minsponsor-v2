@@ -29,9 +29,10 @@ import { ImageUpload } from './image-upload';
 type Props = {
   organization?: Organization;
   mode: 'create' | 'edit';
+  redirectUrl?: string;
 };
 
-export function OrganizationForm({ organization, mode }: Props) {
+export function OrganizationForm({ organization, mode, redirectUrl }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -80,7 +81,7 @@ export function OrganizationForm({ organization, mode }: Props) {
       if (mode === 'create' && data.stripeOnboardingUrl) {
         setStripeUrl(data.stripeOnboardingUrl);
       } else {
-        router.push(`/admin/organizations/${data.organization.id}`);
+        router.push(redirectUrl || `/admin/org/${data.organization.id}`);
         router.refresh();
       }
     } catch (err) {

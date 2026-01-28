@@ -2,6 +2,7 @@ import { supabaseAdmin } from '@/lib/supabase/admin';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { Organization, Subscription } from '@/lib/database.types';
+import { OrgSelector } from '@/components/admin/org-selector';
 
 export const metadata: Metadata = {
   title: 'Dashboard | MinSponsor Admin',
@@ -16,6 +17,14 @@ export default async function AdminDashboardPage() {
     .order('created_at', { ascending: false });
 
   const orgs = orgsData as Organization[] | null;
+
+  // Prepare orgs for selector
+  const orgsForSelector = orgs?.map((o) => ({
+    id: o.id,
+    name: o.name,
+    logo_url: o.logo_url,
+    slug: o.slug,
+  })) || [];
 
   // Fetch subscription stats (use admin to bypass RLS)
   const { count: activeSubCount } = await supabaseAdmin
@@ -52,9 +61,14 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p className="text-gray-500">Oversikt over MinSponsor</p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-gray-500">Oversikt over MinSponsor</p>
+        </div>
+        <div className="w-64">
+          <OrgSelector organizations={orgsForSelector} />
+        </div>
       </div>
 
       {/* Stats */}
@@ -129,7 +143,7 @@ export default async function AdminDashboardPage() {
                 <tr key={org.id} className="hover:bg-stone-50">
                   <td className="px-4 py-3">
                     <Link
-                      href={`/admin/organizations/${org.id}`}
+                      href={`/admin/org/${org.id}`}
                       className="hover:underline"
                     >
                       <div className="font-medium">{org.name}</div>

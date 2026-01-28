@@ -14,9 +14,10 @@ type Props = {
   organizationId: string;
   group?: Group;
   mode: 'create' | 'edit';
+  redirectUrl?: string;
 };
 
-export function GroupForm({ organizationId, group, mode }: Props) {
+export function GroupForm({ organizationId, group, mode, redirectUrl }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -53,7 +54,7 @@ export function GroupForm({ organizationId, group, mode }: Props) {
         throw new Error(data.error || 'Noe gikk galt');
       }
 
-      router.push(`/admin/organizations/${organizationId}`);
+      router.push(redirectUrl || `/admin/org/${organizationId}/groups`);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Noe gikk galt');

@@ -3,22 +3,50 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Building2, CreditCard, LayoutDashboard, LogOut, Rocket, Users } from 'lucide-react';
+import {
+  Building2,
+  CreditCard,
+  LayoutDashboard,
+  LogOut,
+  Rocket,
+  Settings,
+  User,
+  Users,
+} from 'lucide-react';
+import type { Organization } from '@/lib/database.types';
 
 type Props = {
   children: React.ReactNode;
   userEmail?: string;
+  orgSelector?: React.ReactNode;
+  currentOrg?: Organization;
 };
 
-const navigation = [
-  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+// Platform-level navigation (when no org is selected)
+const platformNavigation = [
   { name: 'Organisasjoner', href: '/admin/organizations', icon: Building2 },
   { name: 'Økonomi', href: '/admin/finance', icon: CreditCard },
   { name: 'Onboarding', href: '/admin/onboarding', icon: Rocket },
 ];
 
-export function AdminLayout({ children, userEmail }: Props) {
+// Get org-scoped navigation
+function getOrgNavigation(orgId: string) {
+  return [
+    { name: 'Dashboard', href: `/admin/org/${orgId}`, icon: LayoutDashboard },
+    { name: 'Grupper', href: `/admin/org/${orgId}/groups`, icon: Users },
+    { name: 'Individer', href: `/admin/org/${orgId}/individuals`, icon: User },
+    { name: 'Økonomi', href: `/admin/org/${orgId}/finance`, icon: CreditCard },
+    { name: 'Rapport', href: `/admin/org/${orgId}/report`, icon: LayoutDashboard },
+    { name: 'Innstillinger', href: `/admin/org/${orgId}/settings`, icon: Settings },
+  ];
+}
+
+export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Props) {
   const pathname = usePathname();
+
+  const navigation = currentOrg
+    ? getOrgNavigation(currentOrg.id)
+    : platformNavigation;
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -32,6 +60,13 @@ export function AdminLayout({ children, userEmail }: Props) {
             </Link>
           </div>
 
+          {/* Org Selector */}
+          {orgSelector && (
+            <div className="-mx-2">
+              {orgSelector}
+            </div>
+          )}
+
           {/* Navigation */}
           <nav className="flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -40,7 +75,9 @@ export function AdminLayout({ children, userEmail }: Props) {
                   {navigation.map((item) => {
                     const isActive =
                       pathname === item.href ||
-                      (item.href !== '/admin' && pathname.startsWith(item.href));
+                      (item.href !== '/admin' &&
+                        item.href !== `/admin/org/${currentOrg?.id}` &&
+                        pathname.startsWith(item.href));
                     return (
                       <li key={item.name}>
                         <Link
@@ -67,6 +104,43 @@ export function AdminLayout({ children, userEmail }: Props) {
                   })}
                 </ul>
               </li>
+
+              {/* Platform section when in org context */}
+              {currentOrg && (
+                <li>
+                  <div className="text-xs font-semibold leading-6 text-stone-400">
+                    Plattform
+                  </div>
+                  <ul role="list" className="-mx-2 mt-2 space-y-1">
+                    {platformNavigation.map((item) => {
+                      const isActive = pathname.startsWith(item.href);
+                      return (
+                        <li key={item.name}>
+                          <Link
+                            href={item.href}
+                            className={cn(
+                              isActive
+                                ? 'bg-stone-100 text-stone-900'
+                                : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900',
+                              'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
+                            )}
+                          >
+                            <item.icon
+                              className={cn(
+                                isActive
+                                  ? 'text-stone-900'
+                                  : 'text-stone-400 group-hover:text-stone-900',
+                                'h-5 w-5 shrink-0'
+                              )}
+                            />
+                            {item.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              )}
 
               {/* User section at bottom */}
               <li className="mt-auto">

@@ -21,9 +21,10 @@ type Props = {
   organizationId: string;
   individual?: Individual;
   mode: 'create' | 'edit';
+  redirectUrl?: string;
 };
 
-export function IndividualForm({ organizationId, individual, mode }: Props) {
+export function IndividualForm({ organizationId, individual, mode, redirectUrl }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -105,7 +106,7 @@ export function IndividualForm({ organizationId, individual, mode }: Props) {
         throw new Error(data.error || 'Noe gikk galt');
       }
 
-      router.push(`/admin/organizations/${organizationId}`);
+      router.push(redirectUrl || `/admin/org/${organizationId}/individuals`);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Noe gikk galt');
