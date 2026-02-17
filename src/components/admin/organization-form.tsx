@@ -335,7 +335,7 @@ export function OrganizationForm({ organization, mode, redirectUrl }: Props) {
               className="w-full"
               onClick={() => {
                 setStripeUrl(null);
-                router.push('/admin/organizations');
+                router.push(redirectUrl || '/admin');
                 router.refresh();
               }}
             >
