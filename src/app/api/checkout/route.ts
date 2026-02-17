@@ -5,7 +5,10 @@ import { supabaseAdmin } from '@/lib/supabase/admin';
 import { stripe } from '@/lib/stripe';
 import { createVippsAgreement, formatNorwegianPhone } from '@/lib/vipps';
 import { checkoutSchema } from '@/lib/validations';
-import { PLATFORM_FEE_PERCENT } from '@/lib/fees';
+import {
+  calculateDonationFromTotal,
+  calculateSubscriptionFeePercent,
+} from '@/lib/fees';
 import type { Organization } from '@/lib/database.types';
 
 export async function POST(request: Request) {
@@ -84,7 +87,13 @@ async function handleVippsCheckout(
   // Format phone number (ensure Norwegian format)
   const phoneNumber = formatNorwegianPhone(data.sponsorPhone);
 
+  // data.amount is now totalAmount (what sponsor pays, including fee)
+  // Calculate donation amount (what club receives) for storing in subscription
+  const totalAmount = data.amount;
+  const donationAmount = calculateDonationFromTotal(totalAmount);
+
   // Create subscription record first (pending status)
+  // Store donationAmount (what club receives) in amount field
   const { data: subscription, error: subError } = await supabaseAdmin
     .from('subscriptions')
     .insert({
@@ -96,7 +105,7 @@ async function handleVippsCheckout(
       group_id: 'groupId' in data.recipient ? data.recipient.groupId : null,
       individual_id:
         'individualId' in data.recipient ? data.recipient.individualId : null,
-      amount: data.amount,
+      amount: donationAmount,
       interval: 'monthly',
       status: 'pending',
     })
@@ -112,10 +121,10 @@ async function handleVippsCheckout(
   }
 
   try {
-    // Create Vipps agreement
+    // Create Vipps agreement - charge totalAmount (what sponsor sees and pays)
     const agreement = await createVippsAgreement(org.vipps_msn, {
       phoneNumber,
-      amount: data.amount,
+      amount: totalAmount,
       productName: `Støtte til ${org.name}`,
       merchantRedirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/vipps/callback?sub=${subscription.id}`,
       merchantAgreementUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/mine-abonnementer`,
@@ -151,6 +160,12 @@ async function handleStripeCheckout(
     );
   }
 
+  // data.amount is now the totalAmount (what sponsor pays, including fee)
+  // Calculate donation amount (what club receives)
+  const totalAmount = data.amount;
+  const donationAmount = calculateDonationFromTotal(totalAmount);
+  const feeAmount = totalAmount - donationAmount;
+
   const metadata = {
     organization_id: data.recipient.organizationId,
     group_id: 'groupId' in data.recipient ? data.recipient.groupId ?? '' : '',
@@ -167,7 +182,7 @@ async function handleStripeCheckout(
       {
         price_data: {
           currency: 'nok',
-          unit_amount: data.amount,
+          unit_amount: totalAmount,
           product_data: { name: `Støtte til ${org.name}` },
           ...(data.interval === 'monthly' && {
             recurring: { interval: 'month' },
@@ -179,16 +194,14 @@ async function handleStripeCheckout(
     ...(data.interval === 'monthly'
       ? {
           subscription_data: {
-            application_fee_percent: PLATFORM_FEE_PERCENT,
+            application_fee_percent: calculateSubscriptionFeePercent(totalAmount),
             transfer_data: { destination: org.stripe_account_id },
             metadata,
           },
         }
       : {
           payment_intent_data: {
-            application_fee_amount: Math.round(
-              data.amount * (PLATFORM_FEE_PERCENT / 100)
-            ),
+            application_fee_amount: feeAmount,
             transfer_data: { destination: org.stripe_account_id },
             metadata,
           },

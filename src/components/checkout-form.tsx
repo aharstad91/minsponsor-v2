@@ -81,7 +81,7 @@ export function CheckoutForm({ organization, group, individual }: Props) {
             ...(group && { groupId: group.id }),
             ...(individual && { individualId: individual.id }),
           },
-          amount: selectedAmount,
+          amount: totalAmount,
           interval,
           sponsorEmail: email,
           sponsorName: name || undefined,
