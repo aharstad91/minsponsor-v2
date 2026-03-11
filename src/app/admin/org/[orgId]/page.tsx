@@ -122,7 +122,7 @@ export default async function OrgDashboardPage({ params }: Props) {
 
         <div className="flex gap-2">
           <Button variant="outline" asChild>
-            <a href={`/${organization.slug}`} target="_blank" rel="noopener">
+            <a href={`/stott/${organization.slug}`} target="_blank" rel="noopener">
               <ExternalLink className="h-4 w-4" />
               Se offentlig side
             </a>

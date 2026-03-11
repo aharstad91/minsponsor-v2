@@ -214,14 +214,6 @@ export default async function AdminDashboardPage() {
       {/* Quick links */}
       <div className="mt-8 flex flex-wrap gap-4">
         <a
-          href={`${process.env.NEXT_PUBLIC_SUPABASE_URL?.replace('.supabase.co', '.supabase.studio')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline text-sm"
-        >
-          Supabase Studio →
-        </a>
-        <a
           href="https://dashboard.stripe.com/connect/accounts/overview"
           target="_blank"
           rel="noopener noreferrer"

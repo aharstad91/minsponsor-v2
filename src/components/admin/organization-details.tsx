@@ -62,7 +62,7 @@ export function OrganizationDetails({
 
     try {
       const response = await fetch(
-        `/api/admin/org/${organization.id}/stripe-link`,
+        `/api/admin/organizations/${organization.id}/stripe-link`,
         { method: 'POST' }
       );
       const data = await response.json();
@@ -336,12 +336,12 @@ export function OrganizationDetails({
             <CardContent>
               <div className="flex items-center gap-4">
                 <code className="flex-1 bg-stone-100 px-3 py-2 rounded text-sm">
-                  {process.env.NEXT_PUBLIC_BASE_URL || 'https://minsponsor.no'}/
+                  {process.env.NEXT_PUBLIC_BASE_URL || 'https://minsponsor.no'}/stott/
                   {organization.slug}
                 </code>
                 <Button variant="outline" asChild>
                   <a
-                    href={`/${organization.slug}`}
+                    href={`/stott/${organization.slug}`}
                     target="_blank"
                     rel="noopener"
                   >
