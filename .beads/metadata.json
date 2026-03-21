@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "minsponsor_v2",
+  "project_id": "d58a229f-22b0-4762-8b83-4ee1b5c614ad"
+}
