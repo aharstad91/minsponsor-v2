@@ -293,7 +293,11 @@ export function CheckoutForm({ organization, group, individual }: Props) {
               <p className="text-xs text-muted-foreground text-center">
                 Sikker betaling via{' '}
                 {paymentMethod === 'vipps' ? 'Vipps' : 'Stripe'}. Ved å fortsette
-                godtar du våre vilkår.
+                godtar du våre{' '}
+                <a href="/vilkar" target="_blank" className="underline hover:text-foreground">
+                  salgsvilkår
+                </a>
+                .
               </p>
             </CardContent>
           </Card>

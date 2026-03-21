@@ -159,7 +159,7 @@ export default function HomePage() {
               </div>
               <h3 className="font-semibold mb-2">Betal trygt</h3>
               <p className="text-sm text-muted-foreground">
-                Sikker betaling med kort.
+                Sikker betaling med kort eller Vipps.
               </p>
             </div>
 

@@ -15,7 +15,7 @@ const faqs = [
   {
     question: 'Hvordan fungerer det?',
     answer:
-      'Finn laget du vil støtte, velg et beløp (engang eller månedlig), og betal trygt med kort. Pengene går direkte til laget.',
+      'Finn laget du vil støtte, velg et beløp (engang eller månedlig), og betal trygt med kort eller Vipps. Pengene går direkte til laget.',
   },
   {
     question: 'Hvor mye går til laget?',
@@ -25,7 +25,7 @@ const faqs = [
   {
     question: 'Er betalingen sikker?',
     answer:
-      'Ja! All betaling håndteres av Stripe, en av verdens mest brukte betalingsløsninger. Vi lagrer aldri kortinformasjon.',
+      'Ja! All betaling håndteres av Stripe og Vipps, blant verdens mest brukte betalingsløsninger. Vi lagrer aldri kort- eller betalingsinformasjon.',
   },
   {
     question: 'Kan jeg avslutte et månedlig bidrag?',
@@ -45,7 +45,7 @@ const faqs = [
   {
     question: 'Støtter dere Vipps?',
     answer:
-      'Vi jobber med å få på plass Vipps-betaling. Foreløpig støtter vi kortbetaling via Stripe, inkludert Apple Pay og Google Pay.',
+      'Ja! Du kan betale med Vipps for månedlige abonnementer. I tillegg støtter vi kortbetaling (Visa, Mastercard, Apple Pay og Google Pay) via Stripe.',
   },
 ];
 
