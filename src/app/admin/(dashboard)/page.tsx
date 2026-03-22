@@ -67,7 +67,7 @@ export default async function AdminDashboardPage() {
       <div className="mb-8 flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-gray-500">Oversikt over MinSponsor</p>
+          <p className="text-muted-foreground">Oversikt over MinSponsor</p>
         </div>
         <div className="w-64">
           <OrgSelector organizations={orgsForSelector} />
@@ -76,24 +76,24 @@ export default async function AdminDashboardPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold">{orgs?.length || 0}</div>
-          <div className="text-gray-500 text-sm">Klubber totalt</div>
-          <div className="text-xs text-gray-400 mt-1">
+          <div className="text-muted-foreground text-sm">Klubber totalt</div>
+          <div className="text-xs text-muted-foreground/60 mt-1">
             {orgsActive} kan motta betaling
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold">{activeSubCount}</div>
-          <div className="text-gray-500 text-sm">Aktive sponsorer</div>
+          <div className="text-muted-foreground text-sm">Aktive sponsorer</div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold">
             {(totalMrr / 100).toLocaleString('nb-NO')} kr
           </div>
-          <div className="text-gray-500 text-sm">Total MRR</div>
+          <div className="text-muted-foreground text-sm">Total MRR</div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-sm space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-[#FF5B24] font-medium">Vipps</span>
@@ -108,7 +108,7 @@ export default async function AdminDashboardPage() {
               </span>
             </div>
           </div>
-          <div className="text-gray-500 text-xs mt-2">MRR per provider</div>
+          <div className="text-muted-foreground text-xs mt-2">MRR per provider</div>
         </div>
       </div>
 
@@ -117,7 +117,7 @@ export default async function AdminDashboardPage() {
         <CardHeader className="flex-row items-center justify-between border-b">
           <CardTitle>Klubber - Betalingsstatus</CardTitle>
           <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               <span className="text-[#FF5B24]">{orgsWithVipps} Vipps</span>
               <span className="mx-2">•</span>
               <span className="text-blue-600">{orgsWithStripe} Stripe</span>
@@ -150,7 +150,7 @@ export default async function AdminDashboardPage() {
                       className="hover:underline"
                     >
                       <div className="font-medium">{org.name}</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-muted-foreground">
                         {org.contact_email}
                       </div>
                     </Link>
@@ -164,7 +164,7 @@ export default async function AdminDashboardPage() {
                     ) : org.vipps_msn ? (
                       <Badge variant="warning">Venter</Badge>
                     ) : (
-                      <span className="text-gray-400">—</span>
+                      <span className="text-muted-foreground/60">—</span>
                     )}
                   </TableCell>
                   <TableCell className="px-4 py-3 text-center">
@@ -173,7 +173,7 @@ export default async function AdminDashboardPage() {
                     ) : org.stripe_account_id ? (
                       <Badge variant="warning">Venter</Badge>
                     ) : (
-                      <span className="text-gray-400">—</span>
+                      <span className="text-muted-foreground/60">—</span>
                     )}
                   </TableCell>
                   <TableCell className="px-4 py-3">
@@ -189,7 +189,7 @@ export default async function AdminDashboardPage() {
                 <TableRow>
                   <TableCell
                     colSpan={5}
-                    className="px-4 py-8 text-center text-gray-500"
+                    className="px-4 py-8 text-center text-muted-foreground"
                   >
                     Ingen klubber registrert ennå.{' '}
                     <Link

@@ -29,7 +29,7 @@ export default async function NewIndividualPage({ params }: Props) {
     <div className="max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Nytt individ</h1>
-        <p className="text-gray-500">Opprett et nytt individ i {org.name}</p>
+        <p className="text-muted-foreground">Opprett et nytt individ i {org.name}</p>
       </div>
 
       <IndividualForm

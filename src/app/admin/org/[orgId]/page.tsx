@@ -95,7 +95,7 @@ export default async function OrgDashboardPage({ params }: Props) {
               className="h-16 w-16 rounded-lg object-cover"
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-stone-200 text-xl font-medium text-stone-500">
+            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-muted text-xl font-medium text-muted-foreground">
               {organization.name.substring(0, 2).toUpperCase()}
             </div>
           )}
@@ -114,7 +114,7 @@ export default async function OrgDashboardPage({ params }: Props) {
                 <Badge variant="destructive">Suspendert</Badge>
               )}
             </div>
-            <p className="text-gray-500">
+            <p className="text-muted-foreground">
               Org.nr: {organization.org_number} • {organization.category}
             </p>
           </div>
@@ -141,10 +141,10 @@ export default async function OrgDashboardPage({ params }: Props) {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-gray-400" />
+              <Users className="h-5 w-5 text-muted-foreground/60" />
               <div>
                 <div className="text-2xl font-bold">{groupCount}</div>
-                <div className="text-sm text-gray-500">Grupper</div>
+                <div className="text-sm text-muted-foreground">Grupper</div>
               </div>
             </div>
           </CardContent>
@@ -152,10 +152,10 @@ export default async function OrgDashboardPage({ params }: Props) {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <User className="h-5 w-5 text-gray-400" />
+              <User className="h-5 w-5 text-muted-foreground/60" />
               <div>
                 <div className="text-2xl font-bold">{individualCount}</div>
-                <div className="text-sm text-gray-500">Individer</div>
+                <div className="text-sm text-muted-foreground">Individer</div>
               </div>
             </div>
           </CardContent>
@@ -163,10 +163,10 @@ export default async function OrgDashboardPage({ params }: Props) {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-gray-400" />
+              <CreditCard className="h-5 w-5 text-muted-foreground/60" />
               <div>
                 <div className="text-2xl font-bold">{subscriptionCount}</div>
-                <div className="text-sm text-gray-500">Aktive sponsorer</div>
+                <div className="text-sm text-muted-foreground">Aktive sponsorer</div>
               </div>
             </div>
           </CardContent>
@@ -174,12 +174,12 @@ export default async function OrgDashboardPage({ params }: Props) {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-gray-400" />
+              <TrendingUp className="h-5 w-5 text-muted-foreground/60" />
               <div>
                 <div className="text-2xl font-bold">
                   {(mrr / 100).toLocaleString('nb-NO')} kr
                 </div>
-                <div className="text-sm text-gray-500">MRR</div>
+                <div className="text-sm text-muted-foreground">MRR</div>
               </div>
             </div>
           </CardContent>
@@ -197,7 +197,7 @@ export default async function OrgDashboardPage({ params }: Props) {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Stripe</div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-muted-foreground">
                   {organization.stripe_charges_enabled
                     ? 'Aktiv - kan motta kort'
                     : organization.stripe_account_id
@@ -215,7 +215,7 @@ export default async function OrgDashboardPage({ params }: Props) {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Vipps</div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-muted-foreground">
                   {organization.vipps_enabled
                     ? `Aktiv - MSN: ${organization.vipps_msn}`
                     : organization.vipps_msn
@@ -242,33 +242,33 @@ export default async function OrgDashboardPage({ params }: Props) {
           <CardContent className="space-y-2">
             <Link
               href={`/admin/org/${orgId}/groups`}
-              className="flex items-center justify-between rounded-lg border p-3 hover:bg-stone-50"
+              className="flex items-center justify-between rounded-lg border p-3 hover:bg-secondary"
             >
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-stone-400" />
+                <Users className="h-5 w-5 text-muted-foreground/60" />
                 <span>Administrer grupper</span>
               </div>
-              <ArrowRight className="h-4 w-4 text-stone-400" />
+              <ArrowRight className="h-4 w-4 text-muted-foreground/60" />
             </Link>
             <Link
               href={`/admin/org/${orgId}/individuals`}
-              className="flex items-center justify-between rounded-lg border p-3 hover:bg-stone-50"
+              className="flex items-center justify-between rounded-lg border p-3 hover:bg-secondary"
             >
               <div className="flex items-center gap-2">
-                <User className="h-5 w-5 text-stone-400" />
+                <User className="h-5 w-5 text-muted-foreground/60" />
                 <span>Administrer individer</span>
               </div>
-              <ArrowRight className="h-4 w-4 text-stone-400" />
+              <ArrowRight className="h-4 w-4 text-muted-foreground/60" />
             </Link>
             <Link
               href={`/admin/org/${orgId}/report`}
-              className="flex items-center justify-between rounded-lg border p-3 hover:bg-stone-50"
+              className="flex items-center justify-between rounded-lg border p-3 hover:bg-secondary"
             >
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-stone-400" />
+                <TrendingUp className="h-5 w-5 text-muted-foreground/60" />
                 <span>Se rapport</span>
               </div>
-              <ArrowRight className="h-4 w-4 text-stone-400" />
+              <ArrowRight className="h-4 w-4 text-muted-foreground/60" />
             </Link>
           </CardContent>
         </Card>

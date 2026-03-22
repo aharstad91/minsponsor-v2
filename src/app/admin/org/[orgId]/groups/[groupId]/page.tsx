@@ -99,7 +99,7 @@ export default function EditGroupPage({ params }: Props) {
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">Rediger {group.name}</h1>
-          <p className="text-gray-500">Oppdater gruppens informasjon</p>
+          <p className="text-muted-foreground">Oppdater gruppens informasjon</p>
         </div>
         <Button
           variant="outline"

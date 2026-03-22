@@ -13,7 +13,7 @@ export default function NewOrganizationPage() {
       <div className="mb-6">
         <Link
           href="/admin/organizations"
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
         >
           <ChevronLeft className="h-4 w-4" />
           Tilbake til organisasjoner
@@ -22,7 +22,7 @@ export default function NewOrganizationPage() {
 
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Ny organisasjon</h1>
-        <p className="text-gray-500">
+        <p className="text-muted-foreground">
           Opprett en ny klubb eller organisasjon
         </p>
       </div>

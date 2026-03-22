@@ -40,7 +40,7 @@ export default async function SettingsPage({ params }: Props) {
     <div className="max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Innstillinger</h1>
-        <p className="text-gray-500">Oppdater organisasjonens informasjon</p>
+        <p className="text-muted-foreground">Oppdater organisasjonens informasjon</p>
       </div>
 
       <OrganizationForm

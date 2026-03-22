@@ -70,13 +70,13 @@ export default async function OnboardingPage() {
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Onboarding</h1>
-        <p className="text-gray-500">
+        <p className="text-muted-foreground">
           {enrichedOrgs.length} organisasjoner • {stepCounts[7]} fullt onboardet
         </p>
       </div>
 
       {/* Pipeline Overview */}
-      <div className="bg-white rounded-lg shadow-sm mb-8 overflow-x-auto">
+      <div className="bg-card rounded-lg shadow-sm mb-8 overflow-x-auto">
         <div className="flex min-w-[800px]">
           {ONBOARDING_STEPS.map((step) => {
             const count = stepCounts[step.step];
@@ -90,9 +90,9 @@ export default async function OnboardingPage() {
                 className="flex-1 border-r last:border-r-0 p-4 text-center"
               >
                 <div className="text-3xl font-bold">{count}</div>
-                <div className="text-sm font-medium text-gray-900">{step.name}</div>
-                <div className="text-xs text-gray-500">{step.description}</div>
-                <div className="mt-2 h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="text-sm font-medium text-foreground">{step.name}</div>
+                <div className="text-xs text-muted-foreground">{step.description}</div>
+                <div className="mt-2 h-2 bg-secondary rounded-full overflow-hidden">
                   <div
                     className="h-full bg-green-500 rounded-full transition-all"
                     style={{ width: `${percentage}%` }}

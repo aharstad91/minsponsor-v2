@@ -55,7 +55,7 @@ export default function OnboardingCompletePage() {
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
         <h1 className="text-3xl font-bold mb-2">Stripe-oppsett fullfort!</h1>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           {orgName ? `${orgName} kan nå motta betalinger.` : 'Organisasjonen kan nå motta betalinger.'}
         </p>
       </div>
@@ -65,37 +65,37 @@ export default function OnboardingCompletePage() {
           <CardTitle>Neste steg</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-start gap-4 p-4 bg-secondary rounded-lg">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold">1</span>
             </div>
             <div>
               <h3 className="font-medium">Opprett grupper</h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Organiser medlemmene i grupper (f.eks. lag, klasser, avdelinger)
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-start gap-4 p-4 bg-secondary rounded-lg">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold">2</span>
             </div>
             <div>
               <h3 className="font-medium">Legg til individer</h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Registrer personene som skal kunne motta sponsorstotte
               </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-start gap-4 p-4 bg-secondary rounded-lg">
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
               <span className="text-primary font-semibold">3</span>
             </div>
             <div>
               <h3 className="font-medium">Del support-siden</h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Del lenken til organisasjonens offentlige side med potensielle sponsorer
               </p>
             </div>

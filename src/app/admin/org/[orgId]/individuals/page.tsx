@@ -42,7 +42,7 @@ export default async function IndividualsPage({ params }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Individer</h1>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Administrer individer i organisasjonen
           </p>
         </div>
@@ -55,7 +55,7 @@ export default async function IndividualsPage({ params }: Props) {
       </div>
 
       {individuals.length > 0 ? (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-card rounded-lg shadow-sm overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow>
@@ -78,7 +78,7 @@ export default async function IndividualsPage({ params }: Props) {
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-500 text-sm">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground text-sm">
                           {individual.first_name[0]}
                           {individual.last_name[0]}
                         </div>
@@ -90,12 +90,12 @@ export default async function IndividualsPage({ params }: Props) {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {individual.group_id
                       ? groupMap.get(individual.group_id) || 'Ukjent'
                       : 'Ingen gruppe'}
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {individual.birth_year || '-'}
                   </TableCell>
                   <TableCell>
@@ -121,9 +121,9 @@ export default async function IndividualsPage({ params }: Props) {
       ) : (
         <Card>
           <CardContent className="py-12 text-center">
-            <User className="mx-auto h-12 w-12 text-gray-400" />
+            <User className="mx-auto h-12 w-12 text-muted-foreground/60" />
             <h3 className="mt-4 text-lg font-medium">Ingen individer</h3>
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-muted-foreground">
               Opprett ditt første individ for å komme i gang.
             </p>
             <Button asChild className="mt-4">

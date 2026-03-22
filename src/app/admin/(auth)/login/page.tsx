@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center p-4">
+    <div className="admin-theme min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="max-w-sm w-full">
         <CardContent className="p-6">
           <h1 className="text-xl font-bold mb-6 text-center">

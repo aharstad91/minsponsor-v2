@@ -124,7 +124,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
       );
     }
     return (
-      <span className="inline-block px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs">
+      <span className="inline-block px-2 py-1 bg-secondary text-foreground rounded text-xs">
         Starter
       </span>
     );
@@ -133,9 +133,9 @@ export function OnboardingClient({ organizations, steps }: Props) {
   return (
     <>
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
+      <div className="bg-card rounded-lg shadow-sm p-4 mb-4">
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500">Filtrer etter steg:</span>
+          <span className="text-sm text-muted-foreground">Filtrer etter steg:</span>
           <Select value={filterStep} onValueChange={setFilterStep}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Alle steg" />
@@ -149,7 +149,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
               ))}
             </SelectContent>
           </Select>
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-muted-foreground/60">
             Viser {filteredOrgs.length} av {organizations.length}
           </span>
         </div>
@@ -160,7 +160,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
         {filteredOrgs.map((org) => (
           <div
             key={org.id}
-            className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between gap-4"
+            className="bg-card rounded-lg shadow-sm p-4 flex items-center justify-between gap-4"
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-3">
@@ -172,10 +172,10 @@ export function OnboardingClient({ organizations, steps }: Props) {
                 </Link>
                 {getStepBadge(org.highestStep)}
               </div>
-              <div className="text-sm text-gray-500 mt-1">
+              <div className="text-sm text-muted-foreground mt-1">
                 {org.contact_email}
               </div>
-              <div className="text-sm text-gray-400 mt-1">
+              <div className="text-sm text-muted-foreground/60 mt-1">
                 Neste: {org.onboardingStatus.nextAction}
                 {org.onboardingStatus.daysInCurrentStep > 0 && (
                   <span className="ml-2">
@@ -194,7 +194,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
                 <span className="text-[#FF5B24]">Vipps ✓</span>
               )}
               {!org.stripe_charges_enabled && !org.vipps_enabled && (
-                <span className="text-gray-400">Ingen betaling</span>
+                <span className="text-muted-foreground/60">Ingen betaling</span>
               )}
             </div>
 
@@ -274,7 +274,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
         ))}
 
         {filteredOrgs.length === 0 && (
-          <div className="bg-white rounded-lg shadow-sm p-8 text-center text-gray-500">
+          <div className="bg-card rounded-lg shadow-sm p-8 text-center text-muted-foreground">
             Ingen organisasjoner i dette steget
           </div>
         )}
@@ -289,7 +289,7 @@ export function OnboardingClient({ organizations, steps }: Props) {
               Del denne lenken med organisasjonen for å fullføre Stripe-oppsett
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-2 p-3 bg-secondary rounded-lg">
             <input
               type="text"
               value={stripeUrl}

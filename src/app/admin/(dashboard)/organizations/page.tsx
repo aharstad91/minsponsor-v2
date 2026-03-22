@@ -25,7 +25,7 @@ export default async function OrganizationsPage() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold">Organisasjoner</h1>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             {organizations.length} organisasjon{organizations.length !== 1 ? 'er' : ''} registrert
           </p>
         </div>
@@ -72,13 +72,13 @@ export default async function OrganizationsPage() {
                               className="h-10 w-10 rounded-lg object-cover"
                             />
                           ) : (
-                            <div className="h-10 w-10 rounded-lg bg-stone-200 flex items-center justify-center text-stone-500 text-sm font-medium">
+                            <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground text-sm font-medium">
                               {org.name.substring(0, 2).toUpperCase()}
                             </div>
                           )}
                           <div>
                             <div className="font-medium">{org.name}</div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-muted-foreground">
                               {org.contact_email}
                             </div>
                           </div>
@@ -104,7 +104,7 @@ export default async function OrganizationsPage() {
                           <Badge variant="warning">Stripe</Badge>
                         ) : null}
                         {!hasVippsAccount && !hasStripeAccount && (
-                          <span className="text-gray-400 text-sm">Ingen</span>
+                          <span className="text-muted-foreground/60 text-sm">Ingen</span>
                         )}
                       </div>
                     </TableCell>
@@ -136,7 +136,7 @@ export default async function OrganizationsPage() {
                 <TableRow>
                   <TableCell
                     colSpan={6}
-                    className="px-4 py-8 text-center text-gray-500"
+                    className="px-4 py-8 text-center text-muted-foreground"
                   >
                     Ingen organisasjoner registrert ennå.{' '}
                     <Link

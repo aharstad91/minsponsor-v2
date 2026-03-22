@@ -75,30 +75,30 @@ export default async function FinancePage() {
     <div className="max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Økonomi</h1>
-        <p className="text-gray-500">Finansiell oversikt og transaksjoner</p>
+        <p className="text-muted-foreground">Finansiell oversikt og transaksjoner</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold">
             {(stats.totalVolume / 100).toLocaleString('nb-NO')} kr
           </div>
-          <div className="text-gray-500 text-sm">Volum denne måneden</div>
-          <div className="text-xs text-gray-400 mt-1">
+          <div className="text-muted-foreground text-sm">Volum denne måneden</div>
+          <div className="text-xs text-muted-foreground/60 mt-1">
             {stats.transactionCount} transaksjoner
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold text-green-600">
             {(stats.platformFee / 100).toLocaleString('nb-NO')} kr
           </div>
-          <div className="text-gray-500 text-sm">Plattformgebyr tjent</div>
-          <div className="text-xs text-gray-400 mt-1">
+          <div className="text-muted-foreground text-sm">Plattformgebyr tjent</div>
+          <div className="text-xs text-muted-foreground/60 mt-1">
             Denne måneden
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-sm space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-[#FF5B24] font-medium">Vipps</span>
@@ -113,14 +113,14 @@ export default async function FinancePage() {
               </span>
             </div>
           </div>
-          <div className="text-gray-500 text-xs mt-2">Volum per provider</div>
+          <div className="text-muted-foreground text-xs mt-2">Volum per provider</div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="bg-card p-6 rounded-lg shadow-sm">
           <div className="text-3xl font-bold text-red-600">
             {failedPayments?.length || 0}
           </div>
-          <div className="text-gray-500 text-sm">Feilede betalinger</div>
-          <div className="text-xs text-gray-400 mt-1">
+          <div className="text-muted-foreground text-sm">Feilede betalinger</div>
+          <div className="text-xs text-muted-foreground/60 mt-1">
             Trenger oppfølging
           </div>
         </div>

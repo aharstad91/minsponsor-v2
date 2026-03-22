@@ -49,7 +49,7 @@ export default async function GroupsPage({ params }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Grupper</h1>
-          <p className="text-gray-500">Administrer grupper i organisasjonen</p>
+          <p className="text-muted-foreground">Administrer grupper i organisasjonen</p>
         </div>
         <Button asChild>
           <Link href={`/admin/org/${orgId}/groups/new`}>
@@ -67,7 +67,7 @@ export default async function GroupsPage({ params }: Props) {
               href={`/admin/org/${orgId}/groups/${group.id}`}
               className="block"
             >
-              <Card className="hover:border-stone-300 transition-colors">
+              <Card className="hover:border-border transition-colors">
                 <CardContent className="p-4">
                   <div className="flex items-start gap-4">
                     {group.image_url ? (
@@ -77,7 +77,7 @@ export default async function GroupsPage({ params }: Props) {
                         className="h-12 w-12 rounded-lg object-cover"
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-stone-200 text-stone-500">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                         <Users className="h-6 w-6" />
                       </div>
                     )}
@@ -89,11 +89,11 @@ export default async function GroupsPage({ params }: Props) {
                         )}
                       </div>
                       {group.description && (
-                        <p className="text-sm text-gray-500 line-clamp-2">
+                        <p className="text-sm text-muted-foreground line-clamp-2">
                           {group.description}
                         </p>
                       )}
-                      <div className="mt-2 text-sm text-gray-400">
+                      <div className="mt-2 text-sm text-muted-foreground/60">
                         {countByGroup[group.id] || 0} individer
                       </div>
                     </div>
@@ -106,9 +106,9 @@ export default async function GroupsPage({ params }: Props) {
       ) : (
         <Card>
           <CardContent className="py-12 text-center">
-            <Users className="mx-auto h-12 w-12 text-gray-400" />
+            <Users className="mx-auto h-12 w-12 text-muted-foreground/60" />
             <h3 className="mt-4 text-lg font-medium">Ingen grupper</h3>
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-muted-foreground">
               Opprett din første gruppe for å organisere individer.
             </p>
             <Button asChild className="mt-4">

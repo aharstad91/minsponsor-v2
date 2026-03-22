@@ -29,7 +29,7 @@ export default async function NewGroupPage({ params }: Props) {
     <div className="max-w-3xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Ny gruppe</h1>
-        <p className="text-gray-500">Opprett en ny gruppe i {org.name}</p>
+        <p className="text-muted-foreground">Opprett en ny gruppe i {org.name}</p>
       </div>
 
       <GroupForm

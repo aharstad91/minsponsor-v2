@@ -123,8 +123,8 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
       {/* Table */}
       <CardContent className="p-0 relative">
         {loading && (
-          <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
-            <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <div className="absolute inset-0 bg-card/70 flex items-center justify-center z-10">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/60" />
           </div>
         )}
         <Table>
@@ -143,7 +143,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
               <TableRow key={tx.id}>
                 <TableCell className="px-4 py-3">
                   <div className="font-medium">{tx.subscription?.sponsor_name || 'Ukjent'}</div>
-                  <div className="text-sm text-gray-500">{tx.subscription?.sponsor_email}</div>
+                  <div className="text-sm text-muted-foreground">{tx.subscription?.sponsor_email}</div>
                 </TableCell>
                 <TableCell className="px-4 py-3">
                   {tx.organization ? (
@@ -154,7 +154,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
                       {tx.organization.name}
                     </Link>
                   ) : (
-                    <span className="text-gray-400">Ukjent</span>
+                    <span className="text-muted-foreground/60">Ukjent</span>
                   )}
                 </TableCell>
                 <TableCell className="px-4 py-3 text-right font-mono">
@@ -168,7 +168,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
                 <TableCell className="px-4 py-3 text-center">
                   {getStatusBadge(tx.status)}
                 </TableCell>
-                <TableCell className="px-4 py-3 text-sm text-gray-500">
+                <TableCell className="px-4 py-3 text-sm text-muted-foreground">
                   {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                     day: 'numeric',
                     month: 'short',
@@ -179,7 +179,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
             ))}
             {transactions.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="px-4 py-8 text-center text-gray-500">
+                <TableCell colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
                   Ingen transaksjoner funnet
                 </TableCell>
               </TableRow>
@@ -191,7 +191,7 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="px-6 pb-6 flex items-center justify-between border-t pt-4">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             Viser {(page - 1) * limit + 1} - {Math.min(page * limit, total)} av {total}
           </div>
           <div className="flex items-center gap-2">

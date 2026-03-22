@@ -84,7 +84,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
   return (
     <>
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             {data.organization.logo_url && (
@@ -98,7 +98,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
             )}
             <div>
               <h1 className="text-2xl font-bold">{data.organization.name}</h1>
-              <p className="text-gray-500">Støtterapport</p>
+              <p className="text-muted-foreground">Støtterapport</p>
             </div>
           </div>
           {isAdmin && organizationId && (
@@ -112,32 +112,32 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-card rounded-lg shadow-sm p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-blue-100 rounded-lg">
               <Users className="h-5 w-5 text-blue-600" />
             </div>
-            <span className="text-gray-500 text-sm">Aktive sponsorer</span>
+            <span className="text-muted-foreground text-sm">Aktive sponsorer</span>
           </div>
           <div className="text-3xl font-bold">{data.stats.activeSponsors}</div>
         </div>
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-card rounded-lg shadow-sm p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-green-100 rounded-lg">
               <TrendingUp className="h-5 w-5 text-green-600" />
             </div>
-            <span className="text-gray-500 text-sm">Månedlig inntekt (MRR)</span>
+            <span className="text-muted-foreground text-sm">Månedlig inntekt (MRR)</span>
           </div>
           <div className="text-3xl font-bold">
             {(data.stats.mrr / 100).toLocaleString('nb-NO')} kr
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-card rounded-lg shadow-sm p-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-purple-100 rounded-lg">
               <Wallet className="h-5 w-5 text-purple-600" />
             </div>
-            <span className="text-gray-500 text-sm">Totalt innsamlet</span>
+            <span className="text-muted-foreground text-sm">Totalt innsamlet</span>
           </div>
           <div className="text-3xl font-bold">
             {(data.stats.allTimeTotal / 100).toLocaleString('nb-NO')} kr
@@ -146,7 +146,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
       </div>
 
       {/* By Provider */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
         <h2 className="font-semibold mb-4">Per betalingsmetode</h2>
         <div className="grid grid-cols-2 gap-4">
           <div className="p-4 bg-[#FF5B24]/10 rounded-lg">
@@ -154,7 +154,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
             <div className="text-2xl font-bold">
               {(data.byProvider.vipps.mrr / 100).toLocaleString('nb-NO')} kr/mnd
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               {data.byProvider.vipps.count} sponsorer
             </div>
           </div>
@@ -163,7 +163,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
             <div className="text-2xl font-bold">
               {(data.byProvider.stripe.mrr / 100).toLocaleString('nb-NO')} kr/mnd
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               {data.byProvider.stripe.count} sponsorer
             </div>
           </div>
@@ -172,17 +172,17 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
 
       {/* By Group */}
       {data.byGroup.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
           <h2 className="font-semibold mb-4">Per gruppe/lag</h2>
           <div className="space-y-3">
             {data.byGroup.map((group, index) => (
               <div
                 key={group.groupId || `group-${index}`}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between p-3 bg-secondary rounded-lg"
               >
                 <div>
                   <div className="font-medium">{group.groupName}</div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-muted-foreground">
                     {group.sponsorCount} sponsor{group.sponsorCount !== 1 ? 'er' : ''}
                   </div>
                 </div>
@@ -199,12 +199,12 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
 
       {/* Recent Transactions */}
       {data.recentTransactions.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-card rounded-lg shadow-sm overflow-hidden">
           <div className="p-4 border-b">
             <h2 className="font-semibold">Siste transaksjoner</h2>
           </div>
           <table className="w-full">
-            <thead className="bg-gray-50 text-sm">
+            <thead className="bg-secondary text-sm">
               <tr>
                 {isAdmin && <th className="px-4 py-3 text-left font-medium">Sponsor</th>}
                 <th className="px-4 py-3 text-right font-medium">Beløp</th>
@@ -214,13 +214,13 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
             </thead>
             <tbody className="divide-y">
               {data.recentTransactions.map((tx, index) => (
-                <tr key={`tx-${index}`} className="hover:bg-gray-50">
+                <tr key={`tx-${index}`} className="hover:bg-secondary">
                   {isAdmin && 'subscription' in tx && (
                     <td className="px-4 py-3">
                       <div className="font-medium">
                         {tx.subscription?.sponsor_name || 'Ukjent'}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-muted-foreground">
                         {tx.subscription?.sponsor_email}
                       </div>
                     </td>
@@ -233,7 +233,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
                       {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                  <td className="px-4 py-3 text-sm text-muted-foreground">
                     {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                       day: 'numeric',
                       month: 'short',
@@ -256,7 +256,7 @@ export function ReportClient({ data, organizationId, isAdmin = false }: Props) {
               Denne lenken er gyldig i 30 dager og viser ikke sensitive data (e-postadresser)
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-2 p-3 bg-secondary rounded-lg">
             <input
               type="text"
               value={shareUrl}

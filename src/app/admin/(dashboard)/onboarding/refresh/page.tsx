@@ -54,7 +54,7 @@ export default function OnboardingRefreshPage() {
             <h2 className="text-lg font-medium mb-2">
               {status === 'loading' ? 'Genererer ny lenke...' : 'Videresender til Stripe...'}
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Vennligst vent mens vi forbereder Stripe-oppsettet.
             </p>
           </CardContent>
@@ -75,7 +75,7 @@ export default function OnboardingRefreshPage() {
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             {error || 'Det oppsto en feil under generering av ny Stripe-lenke.'}
           </p>
 

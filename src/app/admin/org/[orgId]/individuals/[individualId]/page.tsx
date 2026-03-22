@@ -103,7 +103,7 @@ export default function EditIndividualPage({ params }: Props) {
           <h1 className="text-2xl font-bold">
             Rediger {individual.first_name} {individual.last_name}
           </h1>
-          <p className="text-gray-500">Oppdater individets informasjon</p>
+          <p className="text-muted-foreground">Oppdater individets informasjon</p>
         </div>
         <Button
           variant="outline"

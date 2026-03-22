@@ -45,11 +45,11 @@ export default async function PublicReportPage({ params }: Props) {
 
   if (shareError || !share) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-sm p-8 max-w-md text-center">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="bg-card rounded-lg shadow-sm p-8 max-w-md text-center">
           <div className="text-6xl mb-4">🔗</div>
           <h1 className="text-xl font-bold mb-2">Ugyldig lenke</h1>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Denne rapport-lenken finnes ikke eller har blitt slettet.
           </p>
         </div>
@@ -60,11 +60,11 @@ export default async function PublicReportPage({ params }: Props) {
   // Check expiration
   if (share.expires_at && new Date(share.expires_at) < new Date()) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-sm p-8 max-w-md text-center">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="bg-card rounded-lg shadow-sm p-8 max-w-md text-center">
           <div className="text-6xl mb-4">⏰</div>
           <h1 className="text-xl font-bold mb-2">Lenken har utløpt</h1>
-          <p className="text-gray-500">
+          <p className="text-muted-foreground">
             Denne rapport-lenken er ikke lenger gyldig. Be om en ny lenke fra organisasjonen.
           </p>
         </div>
@@ -144,10 +144,10 @@ export default async function PublicReportPage({ params }: Props) {
     .limit(10);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-background py-8">
       <div className="max-w-3xl mx-auto px-4">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
           <div className="flex items-center gap-4">
             {org.logo_url && (
               <Image
@@ -160,39 +160,39 @@ export default async function PublicReportPage({ params }: Props) {
             )}
             <div>
               <h1 className="text-2xl font-bold">{org.name}</h1>
-              <p className="text-gray-500">Støtterapport</p>
+              <p className="text-muted-foreground">Støtterapport</p>
             </div>
           </div>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-card rounded-lg shadow-sm p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Users className="h-5 w-5 text-blue-600" />
               </div>
-              <span className="text-gray-500 text-sm">Aktive sponsorer</span>
+              <span className="text-muted-foreground text-sm">Aktive sponsorer</span>
             </div>
             <div className="text-3xl font-bold">{activeSponsors}</div>
           </div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-card rounded-lg shadow-sm p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-green-100 rounded-lg">
                 <TrendingUp className="h-5 w-5 text-green-600" />
               </div>
-              <span className="text-gray-500 text-sm">Månedlig inntekt</span>
+              <span className="text-muted-foreground text-sm">Månedlig inntekt</span>
             </div>
             <div className="text-3xl font-bold">
               {(mrr / 100).toLocaleString('nb-NO')} kr
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className="bg-card rounded-lg shadow-sm p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Wallet className="h-5 w-5 text-purple-600" />
               </div>
-              <span className="text-gray-500 text-sm">Totalt innsamlet</span>
+              <span className="text-muted-foreground text-sm">Totalt innsamlet</span>
             </div>
             <div className="text-3xl font-bold">
               {(allTimeTotal / 100).toLocaleString('nb-NO')} kr
@@ -201,7 +201,7 @@ export default async function PublicReportPage({ params }: Props) {
         </div>
 
         {/* By Provider */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
           <h2 className="font-semibold mb-4">Per betalingsmetode</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 bg-[#FF5B24]/10 rounded-lg">
@@ -209,7 +209,7 @@ export default async function PublicReportPage({ params }: Props) {
               <div className="text-2xl font-bold">
                 {(vippsSubscriptions.reduce((sum, s) => sum + s.amount, 0) / 100).toLocaleString('nb-NO')} kr/mnd
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-muted-foreground">
                 {vippsSubscriptions.length} sponsorer
               </div>
             </div>
@@ -218,7 +218,7 @@ export default async function PublicReportPage({ params }: Props) {
               <div className="text-2xl font-bold">
                 {(stripeSubscriptions.reduce((sum, s) => sum + s.amount, 0) / 100).toLocaleString('nb-NO')} kr/mnd
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-muted-foreground">
                 {stripeSubscriptions.length} sponsorer
               </div>
             </div>
@@ -227,17 +227,17 @@ export default async function PublicReportPage({ params }: Props) {
 
         {/* By Group */}
         {byGroup.length > 0 && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <div className="bg-card rounded-lg shadow-sm p-6 mb-6">
             <h2 className="font-semibold mb-4">Per gruppe/lag</h2>
             <div className="space-y-3">
               {byGroup.map((group, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-3 bg-background rounded-lg"
                 >
                   <div>
                     <div className="font-medium">{group.groupName}</div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-muted-foreground">
                       {group.sponsorCount} sponsor{group.sponsorCount !== 1 ? 'er' : ''}
                     </div>
                   </div>
@@ -254,7 +254,7 @@ export default async function PublicReportPage({ params }: Props) {
 
         {/* Recent Transactions */}
         {recentTransactions && recentTransactions.length > 0 && (
-          <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="bg-card rounded-lg shadow-sm overflow-hidden">
             <div className="p-4 border-b">
               <h2 className="font-semibold">Siste transaksjoner</h2>
             </div>
@@ -277,7 +277,7 @@ export default async function PublicReportPage({ params }: Props) {
                         {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
                       </span>
                     </TableCell>
-                    <TableCell className="text-sm text-gray-500">
+                    <TableCell className="text-sm text-muted-foreground">
                       {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                         day: 'numeric',
                         month: 'short',
@@ -292,7 +292,7 @@ export default async function PublicReportPage({ params }: Props) {
         )}
 
         {/* Footer */}
-        <div className="text-center text-sm text-gray-400 mt-8">
+        <div className="text-center text-sm text-muted-foreground/60 mt-8">
           Rapport generert av MinSponsor
         </div>
       </div>

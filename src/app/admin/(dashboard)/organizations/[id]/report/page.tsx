@@ -126,7 +126,7 @@ export default async function ReportPage({ params }: Props) {
       {/* Back link */}
       <Link
         href={`/admin/org/${id}`}
-        className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 mb-6"
+        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
       >
         <ChevronLeft className="h-4 w-4 mr-1" />
         Tilbake til {org.name}

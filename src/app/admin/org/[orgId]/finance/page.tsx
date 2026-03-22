@@ -100,7 +100,7 @@ export default async function OrgFinancePage({ params }: Props) {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Økonomi</h1>
-        <p className="text-gray-500">Transaksjoner og finansiell oversikt</p>
+        <p className="text-muted-foreground">Transaksjoner og finansiell oversikt</p>
       </div>
 
       {/* Stats Cards */}
@@ -110,8 +110,8 @@ export default async function OrgFinancePage({ params }: Props) {
             <div className="text-2xl font-bold">
               {(totalVolume / 100).toLocaleString('nb-NO')} kr
             </div>
-            <div className="text-sm text-gray-500">Denne måneden</div>
-            <div className="text-xs text-gray-400 mt-1">
+            <div className="text-sm text-muted-foreground">Denne måneden</div>
+            <div className="text-xs text-muted-foreground/60 mt-1">
               {successfulTx.length} transaksjoner
             </div>
           </CardContent>
@@ -121,7 +121,7 @@ export default async function OrgFinancePage({ params }: Props) {
             <div className="text-2xl font-bold">
               {(allTimeTotal / 100).toLocaleString('nb-NO')} kr
             </div>
-            <div className="text-sm text-gray-500">Totalt innsamlet</div>
+            <div className="text-sm text-muted-foreground">Totalt innsamlet</div>
           </CardContent>
         </Card>
         <Card>
@@ -140,7 +140,7 @@ export default async function OrgFinancePage({ params }: Props) {
                 </span>
               </div>
             </div>
-            <div className="text-xs text-gray-400 mt-2">Per provider</div>
+            <div className="text-xs text-muted-foreground/60 mt-2">Per provider</div>
           </CardContent>
         </Card>
         <Card>
@@ -149,7 +149,7 @@ export default async function OrgFinancePage({ params }: Props) {
               {recentTransactions?.filter((t) => t.status === 'failed').length ||
                 0}
             </div>
-            <div className="text-sm text-gray-500">Feilede betalinger</div>
+            <div className="text-sm text-muted-foreground">Feilede betalinger</div>
           </CardContent>
         </Card>
       </div>
@@ -184,7 +184,7 @@ export default async function OrgFinancePage({ params }: Props) {
                           <div className="font-medium">
                             {tx.subscription?.sponsor_name || 'Ukjent'}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-muted-foreground">
                             {tx.subscription?.sponsor_email}
                           </div>
                         </TableCell>
@@ -215,7 +215,7 @@ export default async function OrgFinancePage({ params }: Props) {
                             <Badge variant="secondary">Venter</Badge>
                           )}
                         </TableCell>
-                        <TableCell className="text-sm text-gray-500">
+                        <TableCell className="text-sm text-muted-foreground">
                           {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                             day: 'numeric',
                             month: 'short',
@@ -229,7 +229,7 @@ export default async function OrgFinancePage({ params }: Props) {
               </Table>
             </div>
           ) : (
-            <div className="py-12 text-center text-gray-500">
+            <div className="py-12 text-center text-muted-foreground">
               Ingen transaksjoner ennå.
             </div>
           )}

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Separator } from '@/components/ui/separator';
 import {
   Building2,
   CreditCard,
@@ -49,13 +50,13 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
     : platformNavigation;
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="admin-theme min-h-screen bg-background">
       {/* Sidebar */}
       <div className="fixed inset-y-0 z-50 flex w-64 flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-stone-200 bg-white px-6 pb-4">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
           {/* Logo */}
           <div className="flex h-16 shrink-0 items-center">
-            <Link href="/admin" className="text-xl font-bold text-stone-900">
+            <Link href="/admin" className="text-xl font-bold text-foreground">
               MinSponsor
             </Link>
           </div>
@@ -84,16 +85,16 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
                           href={item.href}
                           className={cn(
                             isActive
-                              ? 'bg-stone-100 text-stone-900'
-                              : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900',
+                              ? 'bg-secondary text-foreground'
+                              : 'text-muted-foreground hover:bg-secondary hover:text-foreground',
                             'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                           )}
                         >
                           <item.icon
                             className={cn(
                               isActive
-                                ? 'text-stone-900'
-                                : 'text-stone-400 group-hover:text-stone-900',
+                                ? 'text-foreground'
+                                : 'text-muted-foreground/60 group-hover:text-foreground',
                               'h-5 w-5 shrink-0'
                             )}
                           />
@@ -108,7 +109,7 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
               {/* Platform section when in org context */}
               {currentOrg && (
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-stone-400">
+                  <div className="text-xs font-semibold leading-6 text-muted-foreground/60">
                     Plattform
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
@@ -120,16 +121,16 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
                             href={item.href}
                             className={cn(
                               isActive
-                                ? 'bg-stone-100 text-stone-900'
-                                : 'text-stone-600 hover:bg-stone-50 hover:text-stone-900',
+                                ? 'bg-secondary text-foreground'
+                                : 'text-muted-foreground hover:bg-secondary hover:text-foreground',
                               'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6'
                             )}
                           >
                             <item.icon
                               className={cn(
                                 isActive
-                                  ? 'text-stone-900'
-                                  : 'text-stone-400 group-hover:text-stone-900',
+                                  ? 'text-foreground'
+                                  : 'text-muted-foreground/60 group-hover:text-foreground',
                                 'h-5 w-5 shrink-0'
                               )}
                             />
@@ -144,17 +145,18 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
 
               {/* User section at bottom */}
               <li className="mt-auto">
-                <div className="flex flex-col gap-2 border-t border-stone-200 pt-4">
+                <div className="flex flex-col gap-2 pt-4">
+                  <Separator />
                   {userEmail && (
-                    <div className="flex items-center gap-x-3 px-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-200">
-                        <Users className="h-4 w-4 text-stone-600" />
+                    <div className="flex items-center gap-x-3 px-2 pt-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
+                        <Users className="h-4 w-4 text-muted-foreground" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-stone-900">
+                        <p className="truncate text-sm font-medium text-foreground">
                           Admin
                         </p>
-                        <p className="truncate text-xs text-stone-500">
+                        <p className="truncate text-xs text-muted-foreground">
                           {userEmail}
                         </p>
                       </div>
@@ -163,9 +165,9 @@ export function AdminLayout({ children, userEmail, orgSelector, currentOrg }: Pr
                   <form action="/api/auth/signout" method="POST">
                     <button
                       type="submit"
-                      className="flex w-full items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-stone-600 hover:bg-stone-50 hover:text-stone-900"
+                      className="flex w-full items-center gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-muted-foreground hover:bg-secondary hover:text-foreground"
                     >
-                      <LogOut className="h-5 w-5 shrink-0 text-stone-400" />
+                      <LogOut className="h-5 w-5 shrink-0 text-muted-foreground/60" />
                       Logg ut
                     </button>
                   </form>
