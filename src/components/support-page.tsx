@@ -3,9 +3,21 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { Users } from 'lucide-react';
+import { Users, AlertTriangle } from 'lucide-react';
 import type { Organization, Group, Individual } from '@/lib/database.types';
 import { canAcceptPayments } from '@/lib/database.types';
 
@@ -53,38 +65,53 @@ export function SupportPage({
       <main className="flex-1 p-4">
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Breadcrumb */}
-          <nav className="text-sm text-muted-foreground flex items-center gap-2">
-            <Link
-              href="/stott"
-              className="hover:text-foreground transition-colors"
-            >
-              MinSponsor
-            </Link>
-            <span className="text-muted-foreground/50">›</span>
-            <Link
-              href={`/stott/${organization.slug}`}
-              className="hover:text-foreground transition-colors"
-            >
-              {organization.name}
-            </Link>
-            {group && (
-              <>
-                <span className="text-muted-foreground/50">›</span>
-                <Link
-                  href={`/stott/${organization.slug}/gruppe/${group.slug}`}
-                  className="hover:text-foreground transition-colors"
-                >
-                  {group.name}
-                </Link>
-              </>
-            )}
-            {individual && (
-              <>
-                <span className="text-muted-foreground/50">›</span>
-                <span className="text-foreground">{individual.first_name}</span>
-              </>
-            )}
-          </nav>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/stott">MinSponsor</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                {type === 'organization' ? (
+                  <BreadcrumbPage>{organization.name}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link href={`/stott/${organization.slug}`}>
+                      {organization.name}
+                    </Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+              {group && (
+                <>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    {type === 'group' ? (
+                      <BreadcrumbPage>{group.name}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink asChild>
+                        <Link
+                          href={`/stott/${organization.slug}/gruppe/${group.slug}`}
+                        >
+                          {group.name}
+                        </Link>
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+                </>
+              )}
+              {individual && (
+                <>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{individual.first_name}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </>
+              )}
+            </BreadcrumbList>
+          </Breadcrumb>
 
           {/* Main card */}
           <Card className="overflow-hidden">
@@ -111,9 +138,9 @@ export function SupportPage({
 
               {/* Category badge */}
               {type === 'organization' && organization.category && (
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                <Badge variant="outline" className="border-primary/30 text-primary bg-primary/10">
                   {organization.category}
-                </span>
+                </Badge>
               )}
 
               {/* Description based on type */}
@@ -136,23 +163,25 @@ export function SupportPage({
                   </Link>
                 </Button>
               ) : (
-                <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
-                  <p className="text-warning/90">
+                <Alert className="bg-warning/10 border-warning/30">
+                  <AlertTriangle className="h-4 w-4 text-warning" />
+                  <AlertDescription className="text-warning/90">
                     Denne klubben kan ikke motta støtte ennå. Kontakt klubben for
                     mer informasjon.
-                  </p>
-                </div>
+                  </AlertDescription>
+                </Alert>
               )}
 
               {/* Trust indicators */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground pt-4 border-t border-border">
+              <Separator />
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <span>Org.nr: {organization.org_number}</span>
                 <span>Sikker betaling</span>
                 {organization.vipps_enabled && (
-                  <span className="text-[#FF5B24] font-medium">Vipps</span>
+                  <Badge variant="outline" className="text-[#FF5B24] border-[#FF5B24]/30">Vipps</Badge>
                 )}
                 {organization.stripe_charges_enabled && (
-                  <span className="text-primary font-medium">Kort</span>
+                  <Badge variant="outline" className="text-primary border-primary/30">Kort</Badge>
                 )}
               </div>
             </CardContent>
@@ -201,20 +230,18 @@ export function SupportPage({
                     }
                     className="flex flex-col items-center p-4 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-sm transition-all"
                   >
-                    {i.photo_url ? (
-                      <img
-                        src={i.photo_url}
-                        alt={`${i.first_name} ${i.last_name}`}
-                        className="h-16 w-16 rounded-full object-cover mb-2 border-2 border-accent/30"
-                      />
-                    ) : (
-                      <div className="h-16 w-16 rounded-full bg-accent/30 flex items-center justify-center mb-2">
-                        <span className="text-xl text-primary font-medium">
-                          {i.first_name[0]}
-                          {i.last_name[0]}
-                        </span>
-                      </div>
-                    )}
+                    <Avatar className="h-16 w-16 mb-2 border-2 border-accent/30">
+                      {i.photo_url ? (
+                        <AvatarImage
+                          src={i.photo_url}
+                          alt={`${i.first_name} ${i.last_name}`}
+                        />
+                      ) : null}
+                      <AvatarFallback className="text-xl text-primary font-medium bg-accent/30">
+                        {i.first_name[0]}
+                        {i.last_name[0]}
+                      </AvatarFallback>
+                    </Avatar>
                     <div className="font-medium text-sm text-center text-foreground">
                       {i.first_name} {i.last_name}
                     </div>

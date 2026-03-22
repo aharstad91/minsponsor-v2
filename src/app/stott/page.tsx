@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { SearchBox } from '@/components/search-box';
+import { Badge } from '@/components/ui/badge';
 import { Building2, Users, User } from 'lucide-react';
 import { canAcceptPayments } from '@/lib/database.types';
 import type { Metadata } from 'next';
@@ -85,9 +86,9 @@ export default async function StottPage() {
                         <div className="font-semibold text-foreground text-lg">
                           {org.name}
                         </div>
-                        <span className="inline-block px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full mt-1">
+                        <Badge variant="outline" className="border-primary/30 text-primary bg-primary/10 mt-1">
                           {org.category}
-                        </span>
+                        </Badge>
                         {org.description && (
                           <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
                             {org.description}
@@ -109,19 +110,15 @@ export default async function StottPage() {
                             </span>
                           )}
                           {!accepts && (
-                            <span className="text-amber-500">
+                            <Badge variant="warning">
                               Ikke klar for betaling
-                            </span>
+                            </Badge>
                           )}
                           {org.vipps_enabled && (
-                            <span className="text-[#FF5B24] font-medium">
-                              Vipps
-                            </span>
+                            <Badge variant="outline" className="text-[#FF5B24] border-[#FF5B24]/30">Vipps</Badge>
                           )}
                           {org.stripe_charges_enabled && (
-                            <span className="text-primary font-medium">
-                              Kort
-                            </span>
+                            <Badge variant="outline" className="text-primary border-primary/30">Kort</Badge>
                           )}
                         </div>
                       </div>

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Info } from 'lucide-react';
 import { stripe, createPortalSession } from '@/lib/stripe';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import type { Metadata } from 'next';
@@ -28,13 +30,11 @@ export default async function BekreftelsePage({ searchParams }: Props) {
   let orgName: string | null = null;
 
   if (provider === 'stripe' && params.session_id) {
-    // Retrieve Stripe session details
     try {
       const session = await stripe.checkout.sessions.retrieve(params.session_id);
       isSubscription = session.mode === 'subscription';
       amount = session.amount_total;
 
-      // For subscriptions, create a portal link
       if (isSubscription && session.customer) {
         portalUrl = await createPortalSession(
           session.customer as string,
@@ -45,7 +45,6 @@ export default async function BekreftelsePage({ searchParams }: Props) {
       console.error('Error retrieving Stripe session:', error);
     }
   } else if (provider === 'vipps' && params.sub) {
-    // Retrieve Vipps subscription details
     try {
       const { data: subscription } = await supabaseAdmin
         .from('subscriptions')
@@ -65,11 +64,11 @@ export default async function BekreftelsePage({ searchParams }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="max-w-md w-full">
         <CardContent className="p-8 text-center space-y-6">
           <div className="text-6xl">🎉</div>
-          <h1 className="text-2xl font-bold">Takk for støtten!</h1>
+          <h1 className="text-2xl font-bold text-foreground">Takk for støtten!</h1>
 
           {amount && (
             <p className="text-3xl font-bold text-green-600">
@@ -78,19 +77,20 @@ export default async function BekreftelsePage({ searchParams }: Props) {
             </p>
           )}
 
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             {isSubscription
               ? 'Du støtter nå månedlig. Du vil motta en kvittering på e-post etter hver betaling.'
               : 'Din støtte er registrert. Du vil motta en kvittering på e-post.'}
           </p>
 
           {provider === 'vipps' && isSubscription && (
-            <div className="bg-stone-100 rounded-lg p-4 text-sm text-gray-600">
-              <p>
+            <Alert className="text-left">
+              <Info className="h-4 w-4" />
+              <AlertDescription>
                 Du kan administrere eller avslutte abonnementet ditt i
                 Vipps-appen under &quot;Faste betalinger&quot;.
-              </p>
-            </div>
+              </AlertDescription>
+            </Alert>
           )}
 
           <div className="space-y-3">
@@ -106,7 +106,7 @@ export default async function BekreftelsePage({ searchParams }: Props) {
           </div>
 
           {orgName && (
-            <p className="text-sm text-gray-500">Støtte til {orgName}</p>
+            <p className="text-sm text-muted-foreground">Støtte til {orgName}</p>
           )}
         </CardContent>
       </Card>

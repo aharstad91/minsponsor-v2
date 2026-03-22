@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Separator } from '@/components/ui/separator';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import type {
@@ -268,16 +270,17 @@ export function CheckoutForm({ organization, group, individual }: Props) {
                   <span>Plattformavgift (10%)</span>
                   <span>{formatAmountPlain(platformFee)} kr</span>
                 </div>
-                <div className="flex justify-between font-bold border-t border-border pt-2 text-foreground">
+                <Separator className="my-1" />
+                <div className="flex justify-between font-bold text-foreground">
                   <span>Totalt{interval === 'monthly' ? '/måned' : ''}</span>
                   <span>{formatAmountPlain(totalAmount)} kr</span>
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
-                  {error}
-                </div>
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
               )}
 
               <Button
