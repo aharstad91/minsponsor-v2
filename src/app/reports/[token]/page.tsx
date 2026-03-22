@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Users, TrendingUp, Wallet } from 'lucide-react';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 
 type Props = {
   params: Promise<{ token: string }>;
@@ -257,36 +258,36 @@ export default async function PublicReportPage({ params }: Props) {
             <div className="p-4 border-b">
               <h2 className="font-semibold">Siste transaksjoner</h2>
             </div>
-            <table className="w-full">
-              <thead className="bg-gray-50 text-sm">
-                <tr>
-                  <th className="px-4 py-3 text-right font-medium">Beløp</th>
-                  <th className="px-4 py-3 text-center font-medium">Metode</th>
-                  <th className="px-4 py-3 text-left font-medium">Dato</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-right">Beløp</TableHead>
+                  <TableHead className="text-center">Metode</TableHead>
+                  <TableHead>Dato</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {recentTransactions.map((tx, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-right font-mono">
+                  <TableRow key={index}>
+                    <TableCell className="text-right font-mono">
                       {(tx.amount / 100).toLocaleString('nb-NO')} kr
-                    </td>
-                    <td className="px-4 py-3 text-center">
+                    </TableCell>
+                    <TableCell className="text-center">
                       <span className={tx.payment_provider === 'vipps' ? 'text-[#FF5B24]' : 'text-blue-600'}>
                         {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
                       </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-gray-500">
+                    </TableCell>
+                    <TableCell className="text-sm text-gray-500">
                       {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
                       })}
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
         )}
 

@@ -3,6 +3,9 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { Organization, Subscription } from '@/lib/database.types';
 import { OrgSelector } from '@/components/admin/org-selector';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata: Metadata = {
   title: 'Dashboard | MinSponsor Admin',
@@ -110,9 +113,9 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Organizations table */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="p-4 border-b flex justify-between items-center">
-          <h2 className="font-semibold">Klubber - Betalingsstatus</h2>
+      <Card>
+        <CardHeader className="flex-row items-center justify-between border-b">
+          <CardTitle>Klubber - Betalingsstatus</CardTitle>
           <div className="flex items-center gap-4">
             <div className="text-sm text-gray-500">
               <span className="text-[#FF5B24]">{orgsWithVipps} Vipps</span>
@@ -126,22 +129,22 @@ export default async function AdminDashboardPage() {
               Se alle →
             </Link>
           </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-stone-50 text-sm">
-              <tr>
-                <th className="px-4 py-3 text-left font-medium">Klubb</th>
-                <th className="px-4 py-3 text-left font-medium">Org.nr</th>
-                <th className="px-4 py-3 text-center font-medium">Vipps</th>
-                <th className="px-4 py-3 text-center font-medium">Stripe</th>
-                <th className="px-4 py-3 text-left font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
+        </CardHeader>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="px-4">Klubb</TableHead>
+                <TableHead className="px-4">Org.nr</TableHead>
+                <TableHead className="px-4 text-center">Vipps</TableHead>
+                <TableHead className="px-4 text-center">Stripe</TableHead>
+                <TableHead className="px-4">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {orgs?.slice(0, 5).map((org) => (
-                <tr key={org.id} className="hover:bg-stone-50">
-                  <td className="px-4 py-3">
+                <TableRow key={org.id}>
+                  <TableCell className="px-4 py-3">
                     <Link
                       href={`/admin/org/${org.id}`}
                       className="hover:underline"
@@ -151,48 +154,40 @@ export default async function AdminDashboardPage() {
                         {org.contact_email}
                       </div>
                     </Link>
-                  </td>
-                  <td className="px-4 py-3 text-sm font-mono">
+                  </TableCell>
+                  <TableCell className="px-4 py-3 font-mono">
                     {org.org_number}
-                  </td>
-                  <td className="px-4 py-3 text-center">
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center">
                     {org.vipps_enabled ? (
-                      <span className="text-green-600 font-medium">
-                        ✓ Aktiv
-                      </span>
+                      <Badge variant="success">✓ Aktiv</Badge>
                     ) : org.vipps_msn ? (
-                      <span className="text-amber-600">Venter</span>
+                      <Badge variant="warning">Venter</Badge>
                     ) : (
                       <span className="text-gray-400">—</span>
                     )}
-                  </td>
-                  <td className="px-4 py-3 text-center">
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-center">
                     {org.stripe_charges_enabled ? (
-                      <span className="text-green-600 font-medium">
-                        ✓ Aktiv
-                      </span>
+                      <Badge variant="success">✓ Aktiv</Badge>
                     ) : org.stripe_account_id ? (
-                      <span className="text-amber-600">Venter</span>
+                      <Badge variant="warning">Venter</Badge>
                     ) : (
                       <span className="text-gray-400">—</span>
                     )}
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
                     {org.vipps_enabled || org.stripe_charges_enabled ? (
-                      <span className="inline-block px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
-                        Kan motta betaling
-                      </span>
+                      <Badge variant="success">Kan motta betaling</Badge>
                     ) : (
-                      <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 rounded text-sm">
-                        Trenger onboarding
-                      </span>
+                      <Badge variant="warning">Trenger onboarding</Badge>
                     )}
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
               {(!orgs || orgs.length === 0) && (
-                <tr>
-                  <td
+                <TableRow>
+                  <TableCell
                     colSpan={5}
                     className="px-4 py-8 text-center text-gray-500"
                   >
@@ -203,13 +198,13 @@ export default async function AdminDashboardPage() {
                     >
                       Opprett den første
                     </Link>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
       {/* Quick links */}
       <div className="mt-8 flex flex-wrap gap-4">

@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import type { Organization } from '@/lib/database.types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Card, CardContent } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -35,20 +37,20 @@ export default async function OrganizationsPage() {
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-stone-50 text-sm">
-              <tr>
-                <th className="px-4 py-3 text-left font-medium">Organisasjon</th>
-                <th className="px-4 py-3 text-left font-medium">Org.nr</th>
-                <th className="px-4 py-3 text-left font-medium">Kategori</th>
-                <th className="px-4 py-3 text-center font-medium">Betalinger</th>
-                <th className="px-4 py-3 text-left font-medium">Status</th>
-                <th className="px-4 py-3 text-right font-medium">Handlinger</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
+      <Card>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="px-4">Organisasjon</TableHead>
+                <TableHead className="px-4">Org.nr</TableHead>
+                <TableHead className="px-4">Kategori</TableHead>
+                <TableHead className="px-4 text-center">Betalinger</TableHead>
+                <TableHead className="px-4">Status</TableHead>
+                <TableHead className="px-4 text-right">Handlinger</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {organizations.map((org) => {
                 const canAcceptPayments =
                   org.vipps_enabled || org.stripe_charges_enabled;
@@ -56,8 +58,8 @@ export default async function OrganizationsPage() {
                 const hasVippsAccount = !!org.vipps_msn;
 
                 return (
-                  <tr key={org.id} className="hover:bg-stone-50">
-                    <td className="px-4 py-3">
+                  <TableRow key={org.id}>
+                    <TableCell className="px-4 py-3">
                       <Link
                         href={`/admin/org/${org.id}`}
                         className="hover:underline"
@@ -82,14 +84,14 @@ export default async function OrganizationsPage() {
                           </div>
                         </div>
                       </Link>
-                    </td>
-                    <td className="px-4 py-3 text-sm font-mono">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 font-mono">
                       {org.org_number}
-                    </td>
-                    <td className="px-4 py-3 text-sm capitalize">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 capitalize">
                       {org.category}
-                    </td>
-                    <td className="px-4 py-3">
+                    </TableCell>
+                    <TableCell className="px-4 py-3">
                       <div className="flex justify-center gap-2">
                         {org.vipps_enabled ? (
                           <Badge variant="success">Vipps</Badge>
@@ -105,8 +107,8 @@ export default async function OrganizationsPage() {
                           <span className="text-gray-400 text-sm">Ingen</span>
                         )}
                       </div>
-                    </td>
-                    <td className="px-4 py-3">
+                    </TableCell>
+                    <TableCell className="px-4 py-3">
                       {org.status === 'active' ? (
                         canAcceptPayments ? (
                           <Badge variant="success">Aktiv</Badge>
@@ -118,21 +120,21 @@ export default async function OrganizationsPage() {
                       ) : (
                         <Badge variant="destructive">Suspendert</Badge>
                       )}
-                    </td>
-                    <td className="px-4 py-3 text-right">
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-right">
                       <Link
                         href={`/admin/org/${org.id}`}
                         className="text-sm text-blue-600 hover:underline"
                       >
                         Administrer
                       </Link>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 );
               })}
               {organizations.length === 0 && (
-                <tr>
-                  <td
+                <TableRow>
+                  <TableCell
                     colSpan={6}
                     className="px-4 py-8 text-center text-gray-500"
                   >
@@ -143,13 +145,13 @@ export default async function OrganizationsPage() {
                     >
                       Opprett den første
                     </Link>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }

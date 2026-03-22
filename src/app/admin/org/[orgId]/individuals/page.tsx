@@ -5,6 +5,7 @@ import type { Individual, Group } from '@/lib/database.types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Plus, User } from 'lucide-react';
 
 type Props = {
@@ -55,20 +56,20 @@ export default async function IndividualsPage({ params }: Props) {
 
       {individuals.length > 0 ? (
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-stone-50 text-sm">
-              <tr>
-                <th className="px-4 py-3 text-left font-medium">Navn</th>
-                <th className="px-4 py-3 text-left font-medium">Gruppe</th>
-                <th className="px-4 py-3 text-left font-medium">Fodselsår</th>
-                <th className="px-4 py-3 text-left font-medium">Status</th>
-                <th className="px-4 py-3 text-right font-medium">Handling</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Navn</TableHead>
+                <TableHead>Gruppe</TableHead>
+                <TableHead>Fodselsår</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Handling</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {individuals.map((individual) => (
-                <tr key={individual.id} className="hover:bg-stone-50">
-                  <td className="px-4 py-3">
+                <TableRow key={individual.id}>
+                  <TableCell>
                     <div className="flex items-center gap-3">
                       {individual.photo_url ? (
                         <img
@@ -88,34 +89,34 @@ export default async function IndividualsPage({ params }: Props) {
                         </div>
                       </div>
                     </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                  </TableCell>
+                  <TableCell className="text-sm text-gray-500">
                     {individual.group_id
                       ? groupMap.get(individual.group_id) || 'Ukjent'
                       : 'Ingen gruppe'}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">
+                  </TableCell>
+                  <TableCell className="text-sm text-gray-500">
                     {individual.birth_year || '-'}
-                  </td>
-                  <td className="px-4 py-3">
+                  </TableCell>
+                  <TableCell>
                     {individual.status === 'active' ? (
                       <Badge variant="success">Aktiv</Badge>
                     ) : (
                       <Badge variant="secondary">Inaktiv</Badge>
                     )}
-                  </td>
-                  <td className="px-4 py-3 text-right">
+                  </TableCell>
+                  <TableCell className="text-right">
                     <Link
                       href={`/admin/org/${orgId}/individuals/${individual.id}`}
                       className="text-sm text-blue-600 hover:underline"
                     >
                       Rediger
                     </Link>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       ) : (
         <Card>

@@ -12,6 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Trash2 } from 'lucide-react';
 import type { Individual } from '@/lib/database.types';
 
@@ -76,10 +78,8 @@ export default function EditIndividualPage({ params }: Props) {
   if (loading) {
     return (
       <div className="max-w-3xl">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/2 mb-8" />
-          <div className="h-64 bg-gray-200 rounded" />
-        </div>
+        <Skeleton className="h-8 w-1/2 mb-8" />
+        <Skeleton className="h-64 w-full" />
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function EditIndividualPage({ params }: Props) {
   if (error && !individual) {
     return (
       <div className="max-w-3xl">
-        <div className="bg-red-50 text-red-600 p-4 rounded-lg">{error}</div>
+        <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>
       </div>
     );
   }
@@ -134,9 +134,7 @@ export default function EditIndividualPage({ params }: Props) {
           </DialogHeader>
 
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
-              {error}
-            </div>
+            <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>
           )}
 
           <DialogFooter>

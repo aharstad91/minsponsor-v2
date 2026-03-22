@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import type { Transaction, Subscription } from '@/lib/database.types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 
 type Props = {
   params: Promise<{ orgId: string }>;
@@ -161,36 +162,36 @@ export default async function OrgFinancePage({ params }: Props) {
         <CardContent className="p-0">
           {recentTransactions && recentTransactions.length > 0 ? (
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-stone-50 text-sm">
-                  <tr>
-                    <th className="px-4 py-3 text-left font-medium">Sponsor</th>
-                    <th className="px-4 py-3 text-right font-medium">Beløp</th>
-                    <th className="px-4 py-3 text-center font-medium">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Sponsor</TableHead>
+                    <TableHead className="text-right">Beløp</TableHead>
+                    <TableHead className="text-center">
                       Provider
-                    </th>
-                    <th className="px-4 py-3 text-center font-medium">
+                    </TableHead>
+                    <TableHead className="text-center">
                       Status
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">Dato</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y">
+                    </TableHead>
+                    <TableHead>Dato</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {(recentTransactions as TransactionWithDetails[]).map(
                     (tx) => (
-                      <tr key={tx.id} className="hover:bg-stone-50">
-                        <td className="px-4 py-3">
+                      <TableRow key={tx.id}>
+                        <TableCell>
                           <div className="font-medium">
                             {tx.subscription?.sponsor_name || 'Ukjent'}
                           </div>
                           <div className="text-sm text-gray-500">
                             {tx.subscription?.sponsor_email}
                           </div>
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono">
+                        </TableCell>
+                        <TableCell className="text-right font-mono">
                           {(tx.amount / 100).toLocaleString('nb-NO')} kr
-                        </td>
-                        <td className="px-4 py-3 text-center">
+                        </TableCell>
+                        <TableCell className="text-center">
                           <span
                             className={
                               tx.payment_provider === 'vipps'
@@ -202,8 +203,8 @@ export default async function OrgFinancePage({ params }: Props) {
                               ? 'Vipps'
                               : 'Stripe'}
                           </span>
-                        </td>
-                        <td className="px-4 py-3 text-center">
+                        </TableCell>
+                        <TableCell className="text-center">
                           {tx.status === 'succeeded' ? (
                             <Badge variant="success">OK</Badge>
                           ) : tx.status === 'failed' ? (
@@ -213,19 +214,19 @@ export default async function OrgFinancePage({ params }: Props) {
                           ) : (
                             <Badge variant="secondary">Venter</Badge>
                           )}
-                        </td>
-                        <td className="px-4 py-3 text-sm text-gray-500">
+                        </TableCell>
+                        <TableCell className="text-sm text-gray-500">
                           {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
                           })}
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     )
                   )}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           ) : (
             <div className="py-12 text-center text-gray-500">

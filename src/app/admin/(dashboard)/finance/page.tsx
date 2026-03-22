@@ -3,6 +3,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { Transaction, Organization, Subscription } from '@/lib/database.types';
 import { FinanceClient } from './finance-client';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
 export const metadata: Metadata = {
   title: 'Økonomi | MinSponsor Admin',
@@ -135,52 +137,50 @@ export default async function FinancePage() {
               Disse betalingene feilet og kan trenge oppfølging
             </p>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-red-100 text-sm">
-                <tr>
-                  <th className="px-4 py-3 text-left font-medium text-red-800">Sponsor</th>
-                  <th className="px-4 py-3 text-left font-medium text-red-800">Organisasjon</th>
-                  <th className="px-4 py-3 text-right font-medium text-red-800">Beløp</th>
-                  <th className="px-4 py-3 text-left font-medium text-red-800">Provider</th>
-                  <th className="px-4 py-3 text-left font-medium text-red-800">Dato</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-red-100">
-                {(failedPayments as TransactionWithDetails[]).map((tx) => (
-                  <tr key={tx.id} className="hover:bg-red-100/50">
-                    <td className="px-4 py-3">
-                      <div className="font-medium">{tx.subscription?.sponsor_name || 'Ukjent'}</div>
-                      <div className="text-sm text-red-600">{tx.subscription?.sponsor_email}</div>
-                    </td>
-                    <td className="px-4 py-3">
-                      {tx.organization ? (
-                        <Link
-                          href={`/admin/org/${tx.organization.id}`}
-                          className="hover:underline text-red-800"
-                        >
-                          {tx.organization.name}
-                        </Link>
-                      ) : (
-                        <span className="text-red-400">Ukjent</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right font-mono">
-                      {(tx.amount / 100).toLocaleString('nb-NO')} kr
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className={tx.payment_provider === 'vipps' ? 'text-[#FF5B24]' : 'text-blue-600'}>
-                        {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-red-600">
-                      {new Date(tx.created_at).toLocaleDateString('nb-NO')}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-red-100 hover:bg-red-100">
+                <TableHead className="px-4 text-red-800">Sponsor</TableHead>
+                <TableHead className="px-4 text-red-800">Organisasjon</TableHead>
+                <TableHead className="px-4 text-right text-red-800">Beløp</TableHead>
+                <TableHead className="px-4 text-red-800">Provider</TableHead>
+                <TableHead className="px-4 text-red-800">Dato</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {(failedPayments as TransactionWithDetails[]).map((tx) => (
+                <TableRow key={tx.id} className="hover:bg-red-100/50 border-red-100">
+                  <TableCell className="px-4 py-3">
+                    <div className="font-medium">{tx.subscription?.sponsor_name || 'Ukjent'}</div>
+                    <div className="text-sm text-red-600">{tx.subscription?.sponsor_email}</div>
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    {tx.organization ? (
+                      <Link
+                        href={`/admin/org/${tx.organization.id}`}
+                        className="hover:underline text-red-800"
+                      >
+                        {tx.organization.name}
+                      </Link>
+                    ) : (
+                      <span className="text-red-400">Ukjent</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-right font-mono">
+                    {(tx.amount / 100).toLocaleString('nb-NO')} kr
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    <Badge variant={tx.payment_provider === 'vipps' ? 'warning' : 'default'}>
+                      {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-sm text-red-600">
+                    {new Date(tx.created_at).toLocaleDateString('nb-NO')}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       )}
 

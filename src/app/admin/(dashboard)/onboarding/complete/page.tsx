@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { CheckCircle, ArrowRight, Users, UserPlus } from 'lucide-react';
 
 export default function OnboardingCompletePage() {
@@ -39,9 +40,9 @@ export default function OnboardingCompletePage() {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-12">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-4" />
-          <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto" />
+        <div className="flex flex-col items-center">
+          <Skeleton className="h-8 w-1/2 mb-4" />
+          <Skeleton className="h-4 w-3/4" />
         </div>
       </div>
     );

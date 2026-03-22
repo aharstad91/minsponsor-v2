@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -74,43 +77,23 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'succeeded':
-        return (
-          <span className="inline-block px-2 py-1 bg-green-100 text-green-800 rounded text-xs">
-            Vellykket
-          </span>
-        );
+        return <Badge variant="success">Vellykket</Badge>;
       case 'failed':
-        return (
-          <span className="inline-block px-2 py-1 bg-red-100 text-red-800 rounded text-xs">
-            Feilet
-          </span>
-        );
+        return <Badge variant="destructive">Feilet</Badge>;
       case 'refunded':
-        return (
-          <span className="inline-block px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs">
-            Refundert
-          </span>
-        );
+        return <Badge variant="secondary">Refundert</Badge>;
       case 'pending':
-        return (
-          <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 rounded text-xs">
-            Venter
-          </span>
-        );
+        return <Badge variant="warning">Venter</Badge>;
       default:
-        return (
-          <span className="inline-block px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs">
-            {status}
-          </span>
-        );
+        return <Badge variant="outline">{status}</Badge>;
     }
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <Card>
       {/* Header with filters */}
-      <div className="p-4 border-b flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-semibold">Alle transaksjoner</h2>
+      <CardHeader className="flex-row items-center justify-between border-b">
+        <CardTitle>Alle transaksjoner</CardTitle>
         <div className="flex items-center gap-3">
           <Select value={filters.status} onValueChange={(v) => handleFilterChange('status', v)}>
             <SelectTrigger className="w-[140px]">
@@ -135,34 +118,34 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
             </SelectContent>
           </Select>
         </div>
-      </div>
+      </CardHeader>
 
       {/* Table */}
-      <div className="overflow-x-auto relative">
+      <CardContent className="p-0 relative">
         {loading && (
           <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
             <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
           </div>
         )}
-        <table className="w-full">
-          <thead className="bg-stone-50 text-sm">
-            <tr>
-              <th className="px-4 py-3 text-left font-medium">Sponsor</th>
-              <th className="px-4 py-3 text-left font-medium">Organisasjon</th>
-              <th className="px-4 py-3 text-right font-medium">Beløp</th>
-              <th className="px-4 py-3 text-center font-medium">Provider</th>
-              <th className="px-4 py-3 text-center font-medium">Status</th>
-              <th className="px-4 py-3 text-left font-medium">Dato</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="px-4">Sponsor</TableHead>
+              <TableHead className="px-4">Organisasjon</TableHead>
+              <TableHead className="px-4 text-right">Beløp</TableHead>
+              <TableHead className="px-4 text-center">Provider</TableHead>
+              <TableHead className="px-4 text-center">Status</TableHead>
+              <TableHead className="px-4">Dato</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {transactions.map((tx) => (
-              <tr key={tx.id} className="hover:bg-stone-50">
-                <td className="px-4 py-3">
+              <TableRow key={tx.id}>
+                <TableCell className="px-4 py-3">
                   <div className="font-medium">{tx.subscription?.sponsor_name || 'Ukjent'}</div>
                   <div className="text-sm text-gray-500">{tx.subscription?.sponsor_email}</div>
-                </td>
-                <td className="px-4 py-3">
+                </TableCell>
+                <TableCell className="px-4 py-3">
                   {tx.organization ? (
                     <Link
                       href={`/admin/org/${tx.organization.id}`}
@@ -173,41 +156,41 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
                   ) : (
                     <span className="text-gray-400">Ukjent</span>
                   )}
-                </td>
-                <td className="px-4 py-3 text-right font-mono">
+                </TableCell>
+                <TableCell className="px-4 py-3 text-right font-mono">
                   {(tx.amount / 100).toLocaleString('nb-NO')} kr
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span className={tx.payment_provider === 'vipps' ? 'text-[#FF5B24] font-medium' : 'text-blue-600 font-medium'}>
+                </TableCell>
+                <TableCell className="px-4 py-3 text-center">
+                  <Badge variant={tx.payment_provider === 'vipps' ? 'warning' : 'default'}>
                     {tx.payment_provider === 'vipps' ? 'Vipps' : 'Stripe'}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center">
+                  </Badge>
+                </TableCell>
+                <TableCell className="px-4 py-3 text-center">
                   {getStatusBadge(tx.status)}
-                </td>
-                <td className="px-4 py-3 text-sm text-gray-500">
+                </TableCell>
+                <TableCell className="px-4 py-3 text-sm text-gray-500">
                   {new Date(tx.created_at).toLocaleDateString('nb-NO', {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
                   })}
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
             {transactions.length === 0 && (
-              <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-gray-500">
+              <TableRow>
+                <TableCell colSpan={6} className="px-4 py-8 text-center text-gray-500">
                   Ingen transaksjoner funnet
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </CardContent>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="p-4 border-t flex items-center justify-between">
+        <div className="px-6 pb-6 flex items-center justify-between border-t pt-4">
           <div className="text-sm text-gray-500">
             Viser {(page - 1) * limit + 1} - {Math.min(page * limit, total)} av {total}
           </div>
@@ -234,6 +217,6 @@ export function FinanceClient({ initialTransactions, totalCount }: Props) {
           </div>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
