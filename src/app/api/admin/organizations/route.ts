@@ -112,7 +112,8 @@ export async function POST(request: NextRequest) {
     try {
       const stripeResult = await createConnectAccount(
         'pending-org', // Will be updated after insert
-        input.contact_email
+        input.contact_email,
+        input.name
       );
       stripeAccountId = stripeResult.accountId;
       stripeOnboardingUrl = stripeResult.onboardingUrl;

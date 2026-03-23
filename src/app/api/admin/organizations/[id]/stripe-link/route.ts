@@ -51,7 +51,8 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
       // Create new Stripe Connect account
       const result = await createConnectAccount(
         organization.id,
-        organization.contact_email
+        organization.contact_email,
+        organization.name
       );
 
       // Update organization with Stripe account ID

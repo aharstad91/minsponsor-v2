@@ -21,12 +21,16 @@ function createStripeClient() {
 export const stripe = createStripeClient();
 
 // Create Stripe Connect Express account for a club
-export async function createConnectAccount(orgId: string, email: string) {
-  // Create Express account
+export async function createConnectAccount(orgId: string, email: string, orgName: string) {
+  // Create Express account with non_profit type so clubs get the correct onboarding form
   const account = await stripe.accounts.create({
     type: 'express',
     country: 'NO',
     email,
+    business_type: 'non_profit',
+    company: {
+      name: orgName,
+    },
     capabilities: {
       card_payments: { requested: true },
       transfers: { requested: true },
