@@ -82,15 +82,16 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/50">
-          <p>© {new Date().getFullYear()} MinSponsor</p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span>Samhold AS · Org.nr 933 649 115</span>
-            <div className="flex items-center gap-1">
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-              <span>Sikker betaling via Stripe og Vipps</span>
-            </div>
+            <span>Johan Arnt Høiseths veg 59, 7089 Heimdal</span>
+            <span>Tlf: 455 00 124 · hei@minsponsor.no</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>Sikker betaling via Stripe og Vipps</span>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function VilkarPage() {
             Salgsvilkår
           </h1>
           <p className="text-muted-foreground mb-12">
-            Sist oppdatert: 21. mars 2026
+            Sist oppdatert: 14. april 2026
           </p>
 
           <div className="prose prose-lg max-w-none space-y-10 text-muted-foreground">
@@ -34,7 +34,8 @@ export default function VilkarPage() {
               <div className="bg-card rounded-2xl border border-border p-6 mt-4">
                 <p className="text-foreground font-medium">Samhold AS</p>
                 <p>Org.nr: 933 649 115</p>
-                <p>Trondheim, Norge</p>
+                <p>Johan Arnt Høiseths veg 59, 7089 Heimdal</p>
+                <p>Telefon: 455 00 124</p>
                 <p>
                   E-post:{' '}
                   <a
